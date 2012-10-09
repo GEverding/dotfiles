@@ -1,0 +1,15 @@
+" Local Bundles "
+" Garrett Everding <garrett.everding92@gmail.com>
+
+let g:spf13_bundle_groups=['general', 'programming', 'javascript', 'html', 'misc']
+
+"Bundle 'a.vim'
+"Bundle 'c.vim'
+"Bundle 'taglist.vim'
+"Bundle 'derekwyatt/vim-scala'
+"Bundle 'ktvoelker/sbt-vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'carlosvillu/coffeScript-VIM-Snippets'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'lukerandall/haskellmode-vim'

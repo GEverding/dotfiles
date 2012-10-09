@@ -1,0 +1,88 @@
+" Local .vimrc
+" Author: Garrett Everding <garrett.everding92@gmail.com>
+
+set nowrap                      " wrap long lines
+set autoindent                  " indent at the same level of the previous line
+set shiftwidth=2                " use indents of 2 spaces
+set expandtab                   " tabs are spaces, not tabs
+set tabstop=2                   " an indentation every four columns
+set softtabstop=2               " let backspace delete indent
+
+let g:snips_author = 'Garrett Everding <garrett.everding92@gmail.com>'
+
+
+" Indent Guide Settings
+let g:indent_guides_auto_colors = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+
+" Haskell Plugin Settings
+au BufEnter,BufNewFile,BufRead *.hs set syn=haskell
+au BufEnter,BufNewFile,BufRead *.hs compiler ghc
+let g:haddock_browser="google-chrome"
+
+" Less
+au BufEnter,BufNewFile,BufRead *.less set syn=less
+
+" Typesafe Syntax
+au BufEnter,BufNewFile,BufRead *.ts set syn=typesafe
+
+" CoffeeScript Settings
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+let coffee_linter = '/home/garrett/local/bin/coffeelint'
+
+" Jade Settings
+autocmd BufNewFile,BufRead *.jade set filetype=jade
+" redo settings
+autocmd BufNewFile,BufRead *.do set syn=sh
+
+" Scala Settings
+autocmd Filetype scala setlocal syntax=on plugin=on
+let g:tagbar_type_scala = {
+    \ 'ctagstype' : 'Scala',
+    \ 'kinds'     : [
+        \ 'p:packages:1',
+        \ 'V:values',
+        \ 'v:variables',
+        \ 'T:types',
+        \ 't:traits',
+        \ 'o:objects',
+        \ 'a:aclasses',
+        \ 'c:classes',
+        \ 'r:cclasses',
+        \ 'm:methods'
+    \ ]
+\ }
+"Remove Error bell and screen flash"
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
+
+if executable('coffeetags')
+  let g:tagbar_type_coffee = {
+        \ 'ctagsbin' : 'coffeetags',
+        \ 'ctagsargs' : '--include-vars',
+        \ 'kinds' : [
+        \ 'f:functions',
+        \ 'o:object',
+        \ ],
+        \ 'sro' : ".",
+        \ 'kind2scope' : {
+        \ 'f' : 'object',
+        \ 'o' : 'object',
+        \ }
+        \ }
+endif
+
+"NERD Tree Customizations
+map <C-e> :NERDTreeToggle<CR>
+
+
+map <F4> :call RCmd("make")<CR>
+function! RCmd(cmd)
+  :silent! exe '!echo "cd ' . getcwd() . ' && ' . a:cmd . '" > /tmp/cmds'
+  :redraw!
+endfunction
