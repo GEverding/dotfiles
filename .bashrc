@@ -107,6 +107,11 @@ fi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh
+
 source $HOME/.rvm/scripts/rvm
 source /opt/ros/fuerte/setup.bash . /home/garrett/.bashrc
 export ROS_WORKSPACE=$HOME/dev/ros/sandbox
