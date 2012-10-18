@@ -38,6 +38,7 @@ au BufEnter,BufNewFile,BufRead *.ts set syn=typesafe
 " CoffeeScript Settings
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 let coffee_linter = '/home/garrett/local/bin/coffeelint'
+au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " Enable Indent Guides at start up
 let indent_guides_enable_on_vim_startup=1

@@ -33,6 +33,12 @@ au BufEnter,BufNewFile,BufRead *.ts set syn=typesafe
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 let coffee_linter = '/home/garrett/local/bin/coffeelint'
 
+" JSON
+au BufEnter,BufNewFile,BufRead *.json set syn=json
+
+" Javascript
+au BufEnter,BufNewFile,BufRead *.js set filetype=javascript
+
 " Jade Settings
 autocmd BufNewFile,BufRead *.jade set filetype=jade
 " redo settings
@@ -76,6 +82,10 @@ if executable('coffeetags')
         \ }
         \ }
 endif
+
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
 
 "NERD Tree Customizations
 map <C-e> :NERDTreeToggle<CR>
