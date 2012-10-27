@@ -104,6 +104,7 @@ set virtualedit=onemore                             " allow for cursor beyond la
 set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when uc presentet history=1000
 set foldenable
+set colorcolumn=80
 set showmode
 
 " Open to last position

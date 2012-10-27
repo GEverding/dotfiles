@@ -1,4 +1,4 @@
 
-.vim/tmp
-.vim/swap
-.vim/view
+.vim/tmp/*
+.vim/swap/*
+.vim/view/*
