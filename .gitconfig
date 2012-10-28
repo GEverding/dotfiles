@@ -4,16 +4,17 @@
 [credential]
 	helper = cache
 [alias]
-	st = status
+	st = status -sb
 	co = checkout
 	pl = pull
-    ps = push
-    psm = push origin master
-    cm = commit
-    cmm = commit -m
-    br = branch
-    df = diff
+  ps = push
+  psm = push origin master
+  cm = commit
+  cmm = commit -m
+  br = branch
+  df = diff
 	lg = log --graph --all
+  hst = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 
 [color]
   branch = auto
@@ -37,3 +38,5 @@
   untracked = cyan
 [merge]
 	tool = meld
+[help]
+	autocorrect = 1
