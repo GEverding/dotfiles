@@ -265,7 +265,7 @@ au BUfEnter,BufCreate,BufNew *.hs set syntax=haskell
     set ts=2 sw=2 et
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
-  " let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_enable_on_vim_startup = 1
   "}
 
 
@@ -300,8 +300,8 @@ endif
     set guioptions-=T
     set lines=40
     if has('gui_gtk2')
-      set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-      "set guifont=DejaVu\ Sans\ Mono\ 14
+      "set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+      set guifont=DejaVu\ Sans\ Mono\ 14
     else
       set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
     endif
