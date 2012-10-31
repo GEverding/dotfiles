@@ -92,6 +92,7 @@ set expandtab                   " tabs are spaces, not tabs
 set tabstop=2                   " an indentation every four columns
 set softtabstop=2               " let backspace delete indent
 set hlsearch
+set incsearch
 set hidden
 set ruler
 set cursorline
@@ -144,7 +145,7 @@ au BUfEnter,BufCreate,BufNew *.hs set syntax=haskell
     map <C-L> <C-W>l<C-W>_
     map <C-H> <C-W>h<C-W>_
 
-    nmap silent> <leader>/ :nohlsearch<CR>
+    nmap <silent> <leader>/ :nohlsearch<CR>
 
     vnoremap < <gv
     vnoremap > >gv
