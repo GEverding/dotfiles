@@ -12,6 +12,7 @@ ZSH_THEME="simple"
 alias ll="ls -alhF --group-directories-first"
 alias la="ls -A"
 alias l="ls -CF --group-directories-first"
+alias tmux="tmux -2"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -35,5 +36,6 @@ plugins=(git, npm)
 
 source $ZSH/oh-my-zsh.sh
 
+#USE_PATCHED_FONT=false
 # Customize to your needs...
 PATH=$PATH:$HOME/local/bin:$HOME/.cabal/bin:$HOME/bin

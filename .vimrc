@@ -64,7 +64,7 @@ call vundle#rc()
   "HTML
   Bundle 'digitaltoad/vim-jade'
   Bundle 'amirh/HTML-AutoCloseTag'
-  
+
   "CSS
   Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
   Bundle 'groenewege/vim-less'
@@ -82,7 +82,7 @@ call vundle#rc()
 
   "Haskell
   Bundle 'lukerandall/haskellmode-vim'
-  
+
   "Misc
   Bundle 'tpope/vim-markdown'
   Bundle 'spf13/vim-preview'
@@ -293,6 +293,7 @@ au BUfEnter,BufNew *.hs set syntax=haskell
    let g:nerdtree_tabs_open_on_gui_startup=0
 " }}}
 
+   let g:Powerline_symbols = 'fancy'
 
 set noerrorbells visualbell t_vb=
 if has('autocmd')
@@ -300,13 +301,13 @@ if has('autocmd')
 endif
 
 " GUI Settings {
-  "GVIM 
+  "GVIM
   if has('gui_running')
     set guioptions-=T
     set lines=40
     if has('gui_gtk2')
       "set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-      set guifont=DejaVu\ Sans\ Mono\ 14
+      set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 14
     else
       set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
     endif
