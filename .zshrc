@@ -35,6 +35,7 @@ alias tmux="tmux -2"
 plugins=(git, npm)
 
 source $ZSH/oh-my-zsh.sh
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
 
 #USE_PATCHED_FONT=false
 # Customize to your needs...
