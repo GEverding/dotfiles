@@ -1,4 +1,4 @@
-" Local .vimrc
+" lOcal .vimrc
 " Author: Garrett Everding <garrett.everding92@gmail.com>
 
 set nocp
@@ -60,6 +60,7 @@ call vundle#rc()
   Bundle 'carlosvillu/coffeScript-VIM-Snippets'
 
   Bundle 'leshill/vim-json'
+
   "HTML
   Bundle 'digitaltoad/vim-jade'
   Bundle 'amirh/HTML-AutoCloseTag'
@@ -67,6 +68,8 @@ call vundle#rc()
   "CSS
   Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
   Bundle 'groenewege/vim-less'
+  "Coffee
+  Bundle 'kchmck/vim-coffee-script'
   "Javascript
   Bundle 'pangloss/vim-javascript'
   Bundle 'briancollins/vim-jst'
@@ -95,6 +98,7 @@ set hlsearch
 set incsearch
 set hidden
 set ruler
+set history=1000
 set cursorline
 set dir=~/.vim/swap
 set backupdir=~/.vim/tmp
@@ -130,12 +134,12 @@ endif
 
 
 
-au BufEnter,BufCreate,BufNew *.coffee set filetype=coffee
-au BufEnter,BufCreate,BufNew *.jade set filetype=jade
-au BufEnter,BufCreate,BufNew *.js set filetype=javascript
-au BufEnter,BufCreate,BufNew *.less set filetype=less
-au BufEnter,BufCreate,BufNew *.ts set filetype=typecript
-au BUfEnter,BufCreate,BufNew *.hs set syntax=haskell
+au BufEnter,BufNew *.coffee set filetype=coffee
+au BufEnter,BufNew *.jade set filetype=jade
+au BufEnter,BufNew *.js set filetype=javascript
+au BufEnter,BufNew *.less set filetype=less
+au BufEnter,BufNew *.ts set filetype=typecript
+au BUfEnter,BufNew *.hs set syntax=haskell
 
 
 " Re-Mappings {
