@@ -9,7 +9,9 @@ ZSH_THEME="simple"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ll="ls -alhF --group-directories-first"
+alias la="ls -A"
+alias l="ls -CF --group-directories-first"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
