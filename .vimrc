@@ -67,18 +67,18 @@ call vundle#rc()
 
   "CSS
   Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-  Bundle 'groenewege/vim-less'
+  "Bundle 'groenewege/vim-less'
   "Coffee
   Bundle 'kchmck/vim-coffee-script'
   "Javascript
   Bundle 'pangloss/vim-javascript'
-  Bundle 'briancollins/vim-jst'
+  "Bundle 'briancollins/vim-jst'
 
   "Python
-  Bundle 'python.vim'
-  Bundle 'klen/python-mode'
-  Bundle 'python_match.vim'
-  Bundle 'pythoncomplete'
+  "Bundle 'python.vim'
+  "Bundle 'klen/python-mode'
+  "Bundle 'python_match.vim'
+  "Bundle 'pythoncomplete'
 
   "Haskell
   Bundle 'lukerandall/haskellmode-vim'
@@ -134,12 +134,15 @@ endif
 
 
 
-au BufEnter,BufNew *.coffee set filetype=coffee
-au BufEnter,BufNew *.jade set filetype=jade
-au BufEnter,BufNew *.js set filetype=javascript
-au BufEnter,BufNew *.less set filetype=less
-au BufEnter,BufNew *.ts set filetype=typecript
-au BUfEnter,BufNew *.hs set syntax=haskell
+au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
+au BufEnter,BufNew,BufRead *.jade set filetype=jade
+au BufEnter,BufNew,BufRead *.js set filetype=javascript
+au BufEnter,BufNew,BufRead *.ts set filetype=typecript
+
+au BUfEnter,BufNew,BufRead *.hs set syntax=haskell
+au BufEnter,BufNew,BufRead *.yml set syntax=yaml
+au BufEnter,BufNew,BufRead *.do set syntax=sh
+au BufEnter,BufNew,BufRead *.less set syntax=less
 
 
 " Re-Mappings {
