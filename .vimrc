@@ -61,14 +61,13 @@ call vundle#rc()
   Bundle 'digitaltoad/vim-jade'
   Bundle 'amirh/HTML-AutoCloseTag'
 
+  "Coffeescript
+  Bundle 'GEverding/coffeescript.vim'
   "CSS
   Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
 
-  "Coffee
-  "Bundle 'kchmck/vim-coffee-script'
   "Javascript
   Bundle 'pangloss/vim-javascript'
-  "Bundle 'briancollins/vim-jst'
 
   "Python
   "Bundle 'python.vim'
@@ -131,15 +130,8 @@ endif
 
 
 
-"au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
-au BufEnter,BufNew,BufRead *.jade set filetype=jade
-au BufEnter,BufNew,BufRead *.js set filetype=javascript
-au BufEnter,BufNew,BufRead *.ts set filetype=typecript
 
-au BUfEnter,BufNew,BufRead *.hs set syntax=haskell
-au BufEnter,BufNew,BufRead *.yml set syntax=yaml
 au BufEnter,BufNew,BufRead *.do set syntax=sh
-au BufEnter,BufNew,BufRead *.less set syntax=less
 
 
 " Re-Mappings {
