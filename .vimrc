@@ -40,7 +40,7 @@ call vundle#rc()
   Bundle 'Lokaltog/vim-powerline'
   Bundle 'Lokaltog/vim-easymotion'
   Bundle 'godlygeek/csapprox'
-  Bundle 'corntrace/bufexplorer'
+
   Bundle 'mbbill/undotree'
   Bundle 'myusuf3/numbers.vim'
   Bundle 'nathanaelkane/vim-indent-guides'
@@ -121,7 +121,7 @@ if has('statusline')
   set laststatus=2
   " Broken down into easily includeable segments
   set statusline=%<%f\    " Filename
-  set statusline+=%w%h%m%r " Options
+  set statusline+=%*
   set statusline+=%{fugitive#statusline()} "  Git Hotness
   set statusline+=\ [%{&ff}/%Y]            " filetype
   set statusline+=\ [%{getcwd()}]          " current dir
@@ -285,9 +285,16 @@ au BufEnter,BufNew,BufRead *.do set syntax=sh
    let NERDTreeShowHidden=1
    let NERDTreeKeepTreeInNewTab=1
    let g:nerdtree_tabs_open_on_gui_startup=0
-" }}}
 
    let g:Powerline_symbols = 'fancy'
+
+   " Syntasic Config
+   let g:syntastic_error_symbol='✗>'
+   let g:syntastic_style_error_symbol='✗>'
+   let g:syntastic_warning_symbol='⚠>'
+   let g:syntastic_style_warning_symbol='⚠>'
+
+" }}}
 
 set noerrorbells visualbell t_vb=
 if has('autocmd')
@@ -314,3 +321,5 @@ endif
     endif
   endif
 " }
+
+set makeprg='make'
