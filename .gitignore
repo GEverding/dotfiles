@@ -1,4 +1,5 @@
 
-.vim/tmp/*
-.vim/swap/*
-.vim/view/*
+.vim/tmp/bkup/*
+.vim/tmp/swap/*
+.vim/tmp/view/*
+.vim/tmp/views/*
