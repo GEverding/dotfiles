@@ -1,7 +1,7 @@
-" lOcal .vimrc
-" Author: Garrett Everding <garrett.everding92@gmail.com>
-
+" local .vimrc
+" Author: Garrett Everding <garrett.everding92@gmail.com> 
 set nocp
+
 syntax on
 filetype plugin indent on
 
@@ -25,19 +25,15 @@ call vundle#rc()
 
   Bundle 'MarcWeber/vim-addon-mw-utils'
   Bundle 'tomtom/tlib_vim'
-  if executable('ack-grep')
-    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-    Bundle 'mileszs/ack.vim'
-  elseif executable('ack')
-    Bundle 'mileszs/ack.vim'
+  if executable('ag')
+    Bundle 'epmatsw/ag.vim'
   endif
   Bundle 'scrooloose/nerdtree'
-  Bundle 'altercation/vim-colors-solarized'
   Bundle 'spf13/vim-colors'
   Bundle 'flazz/vim-colorschemes'
 
   Bundle 'tpope/vim-surround'
-  Bundle 'AutoClose'
+  "Bundle 'AutoClose'
   Bundle 'kien/ctrlp.vim'
   "Bundle 'vim-scripts/sessionman.vim'
   Bundle 'matchit.zip'
@@ -67,9 +63,9 @@ call vundle#rc()
 
   "CSS
   Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-  "Bundle 'groenewege/vim-less'
+
   "Coffee
-  Bundle 'kchmck/vim-coffee-script'
+  "Bundle 'kchmck/vim-coffee-script'
   "Javascript
   Bundle 'pangloss/vim-javascript'
   "Bundle 'briancollins/vim-jst'
@@ -100,8 +96,9 @@ set hidden
 set ruler
 set history=1000
 set cursorline
-set dir=~/.vim/swap
-set backupdir=~/.vim/tmp
+set dir=~/.vim/tmp/swap
+set backupdir=~/.vim/tmp/bkup
+set viewdir=~/.vim/tmp/view
 set mouse=a
 set shortmess+=filmnrxoOtT                         " abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash    " better unix / windows compatibility
@@ -134,7 +131,7 @@ endif
 
 
 
-au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
+"au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
 au BufEnter,BufNew,BufRead *.jade set filetype=jade
 au BufEnter,BufNew,BufRead *.js set filetype=javascript
 au BufEnter,BufNew,BufRead *.ts set filetype=typecript
@@ -289,6 +286,8 @@ au BufEnter,BufNew,BufRead *.less set syntax=less
    let NERDTreeShowBookmakrs=1
    let NERDTreeIgnore=['\.git', '\~$', '\.swp$', '\.hg']
    let NERDTreeChDirMode=0
+   let NERDTreeShowBookmakrs=1
+   let NERDTreeMouseMode=1
    let NERDTreeQuitOnOpen=1
    let NERDTreeMouseMode=2
    let NERDTreeShowHidden=1
