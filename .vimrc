@@ -2,7 +2,7 @@
 " Author: Garrett Everding <garrett.everding92@gmail.com> 
 set nocp
 
-syntax on
+syntax enable
 filetype plugin indent on
 
 inoremap jj <ESC>
