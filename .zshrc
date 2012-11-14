@@ -37,8 +37,8 @@ plugins=(git, npm)
 source $ZSH/oh-my-zsh.sh
 
 # tmux stuff
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
-PLATFORM="linux"
+export PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+export PLATFORM="linux"
 
 #USE_PATCHED_FONT=false
 # Customize to your needs...
