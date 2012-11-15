@@ -22,8 +22,8 @@ tmux_session_info+=(["script"]="${segments_path}/tmux_session_info.sh")
 tmux_session_info+=(["foreground"]="colour234")
 tmux_session_info+=(["background"]="colour148")
 tmux_session_info+=(["separator"]="${separator_right_bold}")
-#tmux_session_info+=(["separator_fg"]="default")
-#register_segment "tmux_session_info"
+tmux_session_info+=(["separator_fg"]="default")
+register_segment "tmux_session_info"
 
 declare -A hostname
 hostname+=(["script"]="${segments_path}/hostname.sh")
@@ -37,7 +37,7 @@ lan_ip+=(["script"]="${segments_path}/lan_ip.sh")
 lan_ip+=(["foreground"]="colour255")
 lan_ip+=(["background"]="colour24")
 lan_ip+=(["separator"]="${separator_right_bold}")
-register_segment "lan_ip"
+#register_segment "lan_ip"
 
 declare -A wan_ip
 wan_ip+=(["script"]="${segments_path}/wan_ip.sh")
@@ -59,7 +59,7 @@ vcs_compare+=(["script"]="${segments_path}/vcs_compare.sh")
 vcs_compare+=(["foreground"]="white")
 vcs_compare+=(["background"]="colour60")
 vcs_compare+=(["separator"]="${separator_right_bold}")
-register_segment "vcs_compare"
+#register_segment "vcs_compare"
 
 declare -A vcs_staged
 vcs_staged+=(["script"]="${segments_path}/vcs_staged.sh")
@@ -80,7 +80,7 @@ vcs_others+=(["script"]="${segments_path}/vcs_others.sh")
 vcs_others+=(["foreground"]="black")
 vcs_others+=(["background"]="colour245")
 vcs_others+=(["separator"]="${separator_right_bold}")
-register_segment "vcs_others"
+#register_segment "vcs_others"
 
 # Print the status line in the order of registration above.
 print_status_line_left
