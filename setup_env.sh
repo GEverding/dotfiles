@@ -14,6 +14,7 @@ FILES=`ls -a | grep "^\." \
       -e "1,2d" \
       -e "/\.git$/d" \
       -e "/\.gitmodules$/d" \
+      -e "/\.gitignore$/d" \
 `
 
 for FILE in $FILES
