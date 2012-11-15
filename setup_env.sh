@@ -34,5 +34,12 @@ fi
 git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/$OHMY
 ln -sf `pwd`/GEverding.zsh-theme $HOME/$OHMY/themes/GEverding.zsh-theme
 
+
 echo "Changing shell to /bin/zsh ..."
 chsh -s /usr/bin/zsh
+
+echo "Installing Vundle"
+git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+
+echo "update/install plugins using Vundle"
+vim +BundleInstall! +BundleClean +qall
