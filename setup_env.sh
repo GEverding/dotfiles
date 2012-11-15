@@ -32,7 +32,7 @@ if [ -d $HOME/$OHMY ]; then
 fi
 
 git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/$OHMY
-#ln -sf `pwd`/jb55.zsh-theme $HOME/$OHMY/themes/jb55.zsh-theme
+ln -sf `pwd`/GEverding.zsh-theme $HOME/$OHMY/themes/GEverding.zsh-theme
 
 echo "Changing shell to /bin/zsh ..."
 chsh -s /usr/bin/zsh
