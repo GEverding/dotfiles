@@ -1,4 +1,4 @@
-# My dotfiles
+## My dotfiles
 
 These are a collection of my dotfiles for Ubuntu/OSX.  
 
