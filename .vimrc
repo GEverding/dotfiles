@@ -262,7 +262,9 @@ au BufEnter,BufNew,BufRead *.do set syntax=sh
     set ts=2 sw=2 et
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
-    let g:indent_guides_enable_on_vim_startup = 1
+    if has('gui_running')
+      let g:indent_guides_enable_on_vim_startup = 1
+    endif
   "}
 
 
@@ -316,6 +318,7 @@ endif
       set transparency=5
     endif
   else
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
     if &term == 'xterm' || &term == 'screen'
       set t_Co=256
     endif
