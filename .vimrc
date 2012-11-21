@@ -53,7 +53,7 @@ call vundle#rc()
   Bundle 'Shougo/neocomplcache'
   Bundle 'Shougo/neosnippet'
   Bundle 'honza/snipmate-snippets'
-  Bundle 'carlosvillu/coffeScript-VIM-Snippets'
+  "Bundle 'carlosvillu/coffeScript-VIM-Snippets'
 
   Bundle 'leshill/vim-json'
 
@@ -95,9 +95,10 @@ set hidden
 set ruler
 set history=1000
 set cursorline
-set dir=~/.vim/tmp/swap
-set backupdir=~/.vim/tmp/bkup
-set viewdir=~/.vim/tmp/view
+"set dir=~/.vim/tmp/swap
+"set backupdir=~/.vim/tmp/bkup
+"set viewdir=~/.vim/tmp/view
+set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
 set mouse=a
 set shortmess+=filmnrxoOtT                         " abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash    " better unix / windows compatibility
@@ -115,12 +116,15 @@ set scrolloff=3                 " minimum lines to keep above and below cursor
 " Open to last position
 au BufWinLeave *.* silent!  mkview
 au BufWinEnter *.* silent! loadview
+" Remove White space and ^M
+autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 if has ('persistent_mode')
   set undofile
   set undolevel=1000
   set undoeload=10000
 endif
+
 if has('statusline')
   set laststatus=2
   " Broken down into easily includeable segments
@@ -329,5 +333,36 @@ endif
     endif
   endif
 " }
+
+function! InitializeDirectories()
+    let separator = "."
+    let parent = $HOME
+    let prefix = '.vim'
+    let dir_list = {
+                \ 'backup': 'backupdir',
+                \ 'views': 'viewdir',
+                \ 'swap': 'directory' }
+
+    if has('persistent_undo')
+        let dir_list['undo'] = 'undodir'
+    endif
+
+    for [dirname, settingname] in items(dir_list)
+        let directory = parent . '/' . prefix . dirname . "/"
+        if exists("*mkdir")
+            if !isdirectory(directory)
+                call mkdir(directory)
+            endif
+        endif
+        if !isdirectory(directory)
+            echo "Warning: Unable to create backup directory: " . directory
+            echo "Try: mkdir -p " . directory
+        else
+            let directory = substitute(directory, " ", "\\\\ ", "g")
+            exec "set " . settingname . "=" . directory
+        endif
+    endfor
+endfunction
+call InitializeDirectories()
 
 set makeprg='make'
