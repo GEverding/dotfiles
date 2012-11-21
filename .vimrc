@@ -107,6 +107,10 @@ set smartcase                   " case sensitive when uc presentet history=1000
 set foldenable
 set colorcolumn=80
 set showmode
+set backspace=indent,eol,start  " backspace for dummies
+set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
+set scrolljump=5                " lines to scroll when cursor leaves screen
+set scrolloff=3                 " minimum lines to keep above and below cursor
 
 " Open to last position
 au BufWinLeave *.* silent!  mkview
@@ -128,10 +132,9 @@ if has('statusline')
   set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav
 endif
 
-
-
-
 au BufEnter,BufNew,BufRead *.do set syntax=sh
+au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
+au BufEnter,BufNew,BufRead *.jade set filetype=jade
 
 
 " Re-Mappings {
@@ -307,6 +310,8 @@ endif
   "GVIM
   if has('gui_running')
     set guioptions-=T
+    set guioptions+=LlRrbh
+    set guioptions-=LlRrbh
     set lines=40
     if has('gui_gtk2')
       "set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
