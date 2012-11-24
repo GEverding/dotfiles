@@ -22,6 +22,7 @@ call vundle#rc()
 
 " Bundles {
   Bundle 'gmarik/vundle'
+  Bundle 'vimwiki'
 
   Bundle 'MarcWeber/vim-addon-mw-utils'
   Bundle 'tomtom/tlib_vim'
@@ -302,6 +303,9 @@ au BufEnter,BufNew,BufRead *.jade set filetype=jade
    let g:syntastic_style_error_symbol='✗>'
    let g:syntastic_warning_symbol='⚠>'
    let g:syntastic_style_warning_symbol='⚠>'
+
+   " VimWiki
+   let g:vimwiki_list = [{'path': '~/.vimwiki'}]
 
 " }}}
 
