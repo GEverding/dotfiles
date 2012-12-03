@@ -43,3 +43,5 @@ export PLATFORM="linux"
 #USE_PATCHED_FONT=false
 # Customize to your needs...
 PATH=$PATH:$HOME/local/bin:$HOME/.cabal/bin:$HOME/bin
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function

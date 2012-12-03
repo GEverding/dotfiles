@@ -1,4 +1,3 @@
-" local .vimrc
 " Author: Garrett Everding <garrett.everding92@gmail.com> 
 set nocp
 
@@ -54,8 +53,8 @@ call vundle#rc()
   Bundle 'Shougo/neocomplcache'
   Bundle 'Shougo/neosnippet'
   Bundle 'honza/snipmate-snippets'
-  "Bundle 'carlosvillu/coffeScript-VIM-Snippets'
 
+  " JSON
   Bundle 'leshill/vim-json'
 
   "HTML
@@ -75,6 +74,10 @@ call vundle#rc()
   "Bundle 'klen/python-mode'
   "Bundle 'python_match.vim'
   "Bundle 'pythoncomplete'
+
+  "Ruby
+  Bundle 'vim-ruby/vim-ruby'
+  Bundle 'tpope/vim-rails'
 
   "Haskell
   Bundle 'lukerandall/haskellmode-vim'
@@ -96,6 +99,7 @@ set hidden
 set ruler
 set history=1000
 set cursorline
+set nospell
 "set dir=~/.vim/tmp/swap
 "set backupdir=~/.vim/tmp/bkup
 "set viewdir=~/.vim/tmp/view
@@ -140,7 +144,8 @@ endif
 au BufEnter,BufNew,BufRead *.do set syntax=sh
 au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
 au BufEnter,BufNew,BufRead *.jade set filetype=jade
-
+au BufEnter,BufNew,BufRead *.less set filetype=less
+au BufEnter,BufNew,BufRead *.md set filetype=markdown
 
 " Re-Mappings {
     let mapleader= ','
@@ -270,6 +275,7 @@ au BufEnter,BufNew,BufRead *.jade set filetype=jade
     set ts=2 sw=2 et
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
+    let g:indent_guides_enable_on_vim_startup = 0
     if has('gui_running')
       let g:indent_guides_enable_on_vim_startup = 1
     endif
@@ -305,7 +311,13 @@ au BufEnter,BufNew,BufRead *.jade set filetype=jade
    let g:syntastic_style_warning_symbol='⚠>'
 
    " VimWiki
-   let g:vimwiki_list = [{'path': '~/.vimwiki'}]
+   let g:vimwiki_list = [{'path': '~/.vimwiki',
+                        \ 'syntax': 'markdown', 'ext': '.md'}]
+
+   " Ruby/Rails
+   let g:rubycomplete_buffer_loading = 1
+   "let g:rubycomplete_classes_in_global = 1
+   "let g:rubycomplete_rails = 1
 
 " }}}
 
@@ -336,6 +348,9 @@ endif
       set t_Co=256
     endif
   endif
+
+  set makeprg='make'
+
 " }
 
 function! InitializeDirectories()
@@ -367,6 +382,21 @@ function! InitializeDirectories()
         endif
     endfor
 endfunction
-call InitializeDirectories()
+"call InitializeDirectories()
 
-set makeprg='make'
+
+" Strip whitespace
+"function! StripTrailingWhitespace()
+"" Preparation: save last search, and cursor position.
+  "let _s=@/
+  "let l = line(".")
+  "let c = col(".")
+  "" Do the business:
+  "%s/\s\+$//e
+  "" Clean up: restore previous search history, and cursor position
+  "let @/=_s
+  "call cursor(l, c)
+"endfunction
+if filereadable(expand(".gvimrc.local"))
+  source .gvimrc.local
+endif
