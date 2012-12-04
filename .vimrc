@@ -4,6 +4,9 @@
 set nocp
 set background=dark
 
+
+colorscheme molokai
+
 syntax enable
 filetype plugin indent on
 
@@ -114,6 +117,7 @@ set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when uc presentet history=1000
 set foldenable
 set colorcolumn=80
+
 set showmode
 set backspace=indent,eol,start  " backspace for dummies
 set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
@@ -335,6 +339,9 @@ autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade,markd
    "let g:rubycomplete_rails = 1
    " }
 
+    " Colorcolums {
+    hi ColorColumn guibg=#2d2d2d ctermbg=246
+    " }
 " }}}
 
 " remove bell {
@@ -347,7 +354,6 @@ endif
 " GUI Settings {
   "GVIM
   if has('gui_running')
-    colorscheme molokai
     set guioptions-=T
     set guioptions+=LlRrbh
     set guioptions-=LlRrbh
@@ -364,7 +370,6 @@ endif
   else
     "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
     set clipboard=unnamed
-    colorscheme molokai
     if &term == 'xterm' || &term == 'screen'
       set t_Co=256
     endif
