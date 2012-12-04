@@ -1,23 +1,18 @@
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker: 
 " Author: Garrett Everding <garrett.everding92@gmail.com> 
+
 set nocp
+set background=dark
 
 syntax enable
 filetype plugin indent on
 
-inoremap jj <ESC>
-
-if has("gui_running")
-  colorscheme molokai
-else
-  set clipboard=unnamed
-  colorscheme molokai
-endif
-
 let g:snips_author = 'Garrett Everding <garrett.everding92@gmail.com>'
 
-
+" Vundle {
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
+" } 
 
 " Bundles {
   Bundle 'gmarik/vundle'
@@ -54,37 +49,47 @@ call vundle#rc()
   Bundle 'Shougo/neosnippet'
   Bundle 'honza/snipmate-snippets'
 
-  " JSON
-  Bundle 'leshill/vim-json'
+  " JSON {
+  "Bundle 'leshill/vim-json'
+  " }
 
-  "HTML
+  " HTML {
   Bundle 'digitaltoad/vim-jade'
   Bundle 'amirh/HTML-AutoCloseTag'
+  " }
 
-  "Coffeescript
+  " Coffeescript {
   Bundle 'GEverding/coffeescript.vim'
-  "CSS
+  " }
+
+  " CSS {
   Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+  " }
 
-  "Javascript
+  " Javascript {
   Bundle 'pangloss/vim-javascript'
+  " }
 
-  "Python
+  " Python {
   "Bundle 'python.vim'
   "Bundle 'klen/python-mode'
   "Bundle 'python_match.vim'
   "Bundle 'pythoncomplete'
+  " }
 
-  "Ruby
-  Bundle 'vim-ruby/vim-ruby'
-  Bundle 'tpope/vim-rails'
+  "Ruby {
+  "Bundle 'vim-ruby/vim-ruby'
+  "Bundle 'tpope/vim-rails'
+  " }
 
-  "Haskell
-  Bundle 'lukerandall/haskellmode-vim'
+  " Haskell {
+  "Bundle 'lukerandall/haskellmode-vim'
+  " }
 
-  "Misc
+  " Misc {
   Bundle 'tpope/vim-markdown'
   Bundle 'spf13/vim-preview'
+  " }
 "}
 
 set nowrap                      " wrap long lines
@@ -100,9 +105,6 @@ set ruler
 set history=1000
 set cursorline
 set nospell
-"set dir=~/.vim/tmp/swap
-"set backupdir=~/.vim/tmp/bkup
-"set viewdir=~/.vim/tmp/view
 set viewoptions=folds,options,cursor,unix,slash " better unix / windows compatibility
 set mouse=a
 set shortmess+=filmnrxoOtT                         " abbrev. of messages (avoids 'hit enter')
@@ -118,36 +120,24 @@ set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
 set scrolljump=5                " lines to scroll when cursor leaves screen
 set scrolloff=3                 " minimum lines to keep above and below cursor
 
+au BufEnter,BufNew,BufRead *.do set syntax=sh
+au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
+au BufEnter,BufNew,BufRead *.jade set filetype=jade
+au BufEnter,BufNew,BufRead *.json set filetype=json
+au BufEnter,BufNew,BufRead *.less set filetype=less
+au BufEnter,BufNew,BufRead *.md set filetype=markdown
+
+
 " Open to last position
 au BufWinLeave *.* silent!  mkview
 au BufWinEnter *.* silent! loadview
 " Remove White space and ^M
-autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
-if has ('persistent_mode')
-  set undofile
-  set undolevel=1000
-  set undoeload=10000
-endif
-
-if has('statusline')
-  set laststatus=2
-  " Broken down into easily includeable segments
-  set statusline=%<%f\    " Filename
-  set statusline+=%*
-  set statusline+=%{fugitive#statusline()} "  Git Hotness
-  set statusline+=\ [%{&ff}/%Y]            " filetype
-  set statusline+=\ [%{getcwd()}]          " current dir
-  set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav
-endif
-
-au BufEnter,BufNew,BufRead *.do set syntax=sh
-au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
-au BufEnter,BufNew,BufRead *.jade set filetype=jade
-au BufEnter,BufNew,BufRead *.less set filetype=less
-au BufEnter,BufNew,BufRead *.md set filetype=markdown
+autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade,markdown
+      \ autocmd BufWritePre <buffer> 
+      \:call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 " Re-Mappings {
+    inoremap jj <ESC>
     let mapleader= ','
     map <C-J> <C-W>j<C-W>_
     map <C-K> <C-W>k<C-W>_
@@ -169,11 +159,9 @@ au BufEnter,BufNew,BufRead *.md set filetype=markdown
     cmap w!! w !sudo tee % >/dev/null
 " }
 
-
-
 " Plugins {{{
 
-" OmniComplete {
+  " OmniComplete {
   if has("autocmd") && exists("+omnifunc")
    autocmd Filetype *
      \if &omnifunc == "" |
@@ -196,6 +184,7 @@ au BufEnter,BufNew,BufRead *.md set filetype=markdown
   " automatically open and close the popup menu / preview window
   au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
   set completeopt=menu,preview,longest
+  " }
 
 
   " neocomplcache {
@@ -284,10 +273,19 @@ au BufEnter,BufNew,BufRead *.md set filetype=markdown
 
   " UndoTree {
     nnoremap <Leader>u :UndotreeToggle<CR>
-  " }"
+    if has ('persistent_mode')
+      set undofile
+      set undolevel=1000
+      set undoeload=10000
+    endif
+
+
+  " }
+
 
 
   " NerdTree {
+  
    map <C-e> :NERDTreeToggle<CR>
    map <leader>e :NERDTREEFind<CR>
 
@@ -297,38 +295,59 @@ au BufEnter,BufNew,BufRead *.md set filetype=markdown
    let NERDTreeShowBookmakrs=1
    let NERDTreeMouseMode=1
    let NERDTreeQuitOnOpen=1
-   let NERDTreeMouseMode=2
+   let NEDTreeMouseMode=2
    let NERDTreeShowHidden=1
    let NERDTreeKeepTreeInNewTab=1
    let g:nerdtree_tabs_open_on_gui_startup=0
+   " }
 
+   " vim-powerline {
    let g:Powerline_symbols = 'fancy'
+
+   if has('statusline')
+     set laststatus=2
+     " Broken down into easily includeable segments
+     set statusline=%<%f\    " Filename
+     set statusline+=%*
+     set statusline+=%{fugitive#statusline()} "  Git Hotness
+     set statusline+=\ [%{&ff}/%Y]            " filetype
+     set statusline+=\ [%{getcwd()}]          " current dir
+     set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav
+   endif
+
+   " }
 
    " Syntasic Config
    let g:syntastic_error_symbol='✗>'
    let g:syntastic_style_error_symbol='✗>'
    let g:syntastic_warning_symbol='⚠>'
    let g:syntastic_style_warning_symbol='⚠>'
+   " }
 
-   " VimWiki
+   " VimWiki {
    let g:vimwiki_list = [{'path': '~/.vimwiki',
                         \ 'syntax': 'markdown', 'ext': '.md'}]
+   " }
 
-   " Ruby/Rails
+   " Ruby/Rails {
    let g:rubycomplete_buffer_loading = 1
    "let g:rubycomplete_classes_in_global = 1
    "let g:rubycomplete_rails = 1
+   " }
 
 " }}}
 
+" remove bell {
 set noerrorbells visualbell t_vb=
 if has('autocmd')
   autocmd GUIEnter * set visualbell t_vb=
 endif
+" }
 
 " GUI Settings {
   "GVIM
   if has('gui_running')
+    colorscheme molokai
     set guioptions-=T
     set guioptions+=LlRrbh
     set guioptions-=LlRrbh
@@ -343,16 +362,18 @@ endif
       set transparency=5
     endif
   else
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+    set clipboard=unnamed
+    colorscheme molokai
     if &term == 'xterm' || &term == 'screen'
       set t_Co=256
     endif
   endif
 
-  set makeprg='make'
 
 " }
 
+" function: InitializeDirectories {
 function! InitializeDirectories()
     let separator = "."
     let parent = $HOME
@@ -382,21 +403,27 @@ function! InitializeDirectories()
         endif
     endfor
 endfunction
-"call InitializeDirectories()
+call InitializeDirectories()
+" }
 
 
-" Strip whitespace
-"function! StripTrailingWhitespace()
-"" Preparation: save last search, and cursor position.
-  "let _s=@/
-  "let l = line(".")
-  "let c = col(".")
-  "" Do the business:
-  "%s/\s\+$//e
-  "" Clean up: restore previous search history, and cursor position
-  "let @/=_s
-  "call cursor(l, c)
-"endfunction
+" function: Strip whitespace {
+function! StripTrailingWhitespace()
+" Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+" }
+
+
+set makeprg='make'
 if filereadable(expand(".gvimrc.local"))
   source .gvimrc.local
 endif
+
