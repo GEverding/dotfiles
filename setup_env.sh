@@ -36,7 +36,7 @@ git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/$OHMY
 ln -sf `pwd`/GEverding.zsh-theme $HOME/$OHMY/themes/GEverding.zsh-theme
 
 echo "Setting Up Patched powerline font"
-git clone git://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
+git clone https://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
 
 echo "Changing shell to /bin/zsh ..."
 chsh -s /usr/bin/zsh
