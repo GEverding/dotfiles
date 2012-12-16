@@ -1,4 +1,4 @@
-
+.maid/*.log
 .vim/bundle
 .vim/tmp/bkup/*
 .vim/tmp/swap/*
