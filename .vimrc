@@ -1,5 +1,5 @@
-" vim: set foldmarker={,} foldlevel=0 foldmethod=marker: 
-" Author: Garrett Everding <garrett.everding92@gmail.com> 
+" vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
+" Author: Garrett Everding <garrett.everding92@gmail.com>
 
 set nocp
 set background=dark
@@ -15,7 +15,7 @@ let g:snips_author = 'Garrett Everding <garrett.everding92@gmail.com>'
 " Vundle {
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
-" } 
+" }
 
 " Bundles {
   Bundle 'gmarik/vundle'
@@ -190,7 +190,6 @@ autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade,markd
   set completeopt=menu,preview,longest
   " }
 
-
   " neocomplcache {
   let g:neocomplcache_enable_at_startup = 1
   let g:neocomplcache_enable_camel_case_completion = 1
@@ -289,7 +288,7 @@ autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade,markd
 
 
   " NerdTree {
-  
+
    map <C-e> :NERDTreeToggle<CR>
    map <leader>e :NERDTREEFind<CR>
 
@@ -341,6 +340,14 @@ autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade,markd
 
     " Colorcolums {
     hi ColorColumn guibg=#2d2d2d ctermbg=246
+    " }
+
+    " ctrlp {
+    let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll|class)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
     " }
 " }}}
 
