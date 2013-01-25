@@ -41,6 +41,9 @@ git clone https://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
 echo "Changing shell to /bin/zsh ..."
 chsh -s /usr/bin/zsh
 
+echo "Instaling deliver..."
+git clone git://github.com/gerhard/deliver.git ~/.deliver
+
 echo "Installing Vundle"
 git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 
