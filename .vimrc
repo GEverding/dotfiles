@@ -73,6 +73,15 @@ call vundle#rc()
   Bundle 'pangloss/vim-javascript'
   " }
 
+  " Scala {
+  Bundle 'derekwyatt/vim-scala'
+  Bundle 'derekwyatt/vim-sbt'
+  " }
+
+  " PHP {
+  Bundle 'spf13/PIV.git'
+  " }
+  "
   " Python {
   "Bundle 'python.vim'
   "Bundle 'klen/python-mode'
@@ -116,13 +125,15 @@ set virtualedit=onemore                             " allow for cursor beyond la
 set ignorecase                  " case insensitive search
 set smartcase                   " case sensitive when uc presentet history=1000
 set foldenable
-set colorcolumn=80
+set colorcolumn=+1
+set tags=tags;/
 
 set showmode
 set backspace=indent,eol,start  " backspace for dummies
 set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
 set scrolljump=5                " lines to scroll when cursor leaves screen
 set scrolloff=3                 " minimum lines to keep above and below cursor
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 au BufEnter,BufNew,BufRead *.do set syntax=sh
 au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
@@ -130,14 +141,15 @@ au BufEnter,BufNew,BufRead *.jade set filetype=jade
 au BufEnter,BufNew,BufRead *.json set filetype=json
 au BufEnter,BufNew,BufRead *.less set filetype=less
 au BufEnter,BufNew,BufRead *.md set filetype=markdown
+au BufEnter,BufNew,BufRead *.scala set filetype=scala
 
 
 " Open to last position
 au BufWinLeave *.* silent!  mkview
 au BufWinEnter *.* silent! loadview
 " Remove White space and ^M
-autocmd FileType c,cpp,java,php,javascript,python,twig,xml,yml,coffee,jade,markdown
-      \ autocmd BufWritePre <buffer> 
+autocmd FileType c,cpp,java,scala,php,javascript,python,twig,xml,yml,coffee,jade,markdown
+      \ autocmd BufWritePre <buffer>
       \:call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 " Re-Mappings {
