@@ -107,3 +107,10 @@ find . -name "$2" -exec grep -il "$1" {} \;
 }
 
 alias mcc="rm -rf var/cache/* var/full_page_cache/*"
+
+alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
+
+alias open='gnome-open'
+
+alias wotgobblemem='ps -o time,ppid,pid,nice,pcpu,pmem,user,comm -A | sort -n -k 6 | tail -15'
+
