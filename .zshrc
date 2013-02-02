@@ -14,6 +14,7 @@ alias la="ls -A"
 alias l="ls -CF --group-directories-first"
 alias tmux="tmux -2"
 
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -35,6 +36,7 @@ alias tmux="tmux -2"
 plugins=(git, npm)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.aliases
 
 # tmux stuff
 export PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
