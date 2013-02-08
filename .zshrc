@@ -39,7 +39,7 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
 
 # tmux stuff
-export PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#I_#P") "$PWD")'
+PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 export PLATFORM="linux"
 
 #USE_PATCHED_FONT=false
@@ -47,3 +47,6 @@ export PLATFORM="linux"
 PATH=$PATH:$HOME/local/bin:$HOME/.cabal/bin:$HOME/bin:$HOME/.local/bin:$HOME/.deliver/bin
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
