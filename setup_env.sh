@@ -35,6 +35,10 @@ fi
 git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/$OHMY
 ln -sf `pwd`/GEverding.zsh-theme $HOME/$OHMY/themes/GEverding.zsh-theme
 
+
+echo "Installing tmux powerline "
+git clone git://github.com/erikw/tmux-powerline.git $HOME/.tmux-powerline
+
 echo "Setting Up Patched powerline font"
 git clone https://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
 
@@ -49,3 +53,4 @@ git clone http://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 
 echo "update/install plugins using Vundle"
 vim +BundleInstall! +BundleClean +qall
+
