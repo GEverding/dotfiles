@@ -36,11 +36,22 @@ git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/$OHMY
 ln -sf `pwd`/GEverding.zsh-theme $HOME/$OHMY/themes/GEverding.zsh-theme
 
 
-echo "Installing tmux powerline "
+echo "Installing tmux powerline..."
 git clone git://github.com/erikw/tmux-powerline.git $HOME/.tmux-powerline
 
-echo "Setting Up Patched powerline font"
+hash pip  &> /dev/null
+if [ $? -eq 1 ]; then
+  echo >&2 "pip was not found.  could not install powerline"
+else
+  echo "Installing Vim Powerline..."
+  pip install --user git+git://github.com/Lokaltog/powerline
+fi
+
+echo "Installing Patched Fonts...."
 git clone https://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
+git clone git://github.com/Lokaltog/powerline-fonts.git $HOME/.fonts/powerline-fonts
+fc-cache -vf ~/.fonts
+echo "Finished Installing Patched Fonts"
 
 echo "Changing shell to /bin/zsh ..."
 chsh -s /usr/bin/zsh

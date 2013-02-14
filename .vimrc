@@ -35,7 +35,7 @@ call vundle#rc()
   Bundle 'kien/ctrlp.vim'
   "Bundle 'vim-scripts/sessionman.vim'
   Bundle 'matchit.zip'
-  Bundle 'Lokaltog/vim-powerline'
+  "Bundle 'Lokaltog/vim-powerline'
   Bundle 'Lokaltog/vim-easymotion'
   Bundle 'godlygeek/csapprox'
 
@@ -134,6 +134,9 @@ set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
 set scrolljump=5                " lines to scroll when cursor leaves screen
 set scrolloff=3                 " minimum lines to keep above and below cursor
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+" setup powerline
+set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
 
 au BufEnter,BufNew,BufRead *.do set syntax=sh
 au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
@@ -355,6 +358,8 @@ autocmd FileType c,cpp,java,scala,php,javascript,python,twig,xml,yml,coffee,jade
     " }
 
     " ctrlp {
+    "
+    let g:ctrlp_working_path_mode = 'ra'
     let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/]\.(git|hg|svn)$',
       \ 'file': '\v\.(exe|so|dll|class)$',
