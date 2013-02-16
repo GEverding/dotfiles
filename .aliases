@@ -114,3 +114,7 @@ alias open='gnome-open'
 
 alias wotgobblemem='ps -o time,ppid,pid,nice,pcpu,pmem,user,comm -A | sort -n -k 6 | tail -15'
 
+function gi() 
+{ 
+  curl http://gitignore.io/api/$1 ;
+}
