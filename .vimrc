@@ -5,7 +5,6 @@ set nocp
 set background=dark
 
 
-colorscheme molokai
 
 syntax enable
 filetype plugin indent on
@@ -103,6 +102,10 @@ call vundle#rc()
   Bundle 'spf13/vim-preview'
   " }
 "}
+
+
+"colorscheme molokai
+colorscheme grb256
 
 set nowrap                      " wrap long lines
 set autoindent                  " indent at the same level of the previous line
@@ -384,7 +387,7 @@ endif
     set lines=40
     if has('gui_gtk2')
       "set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-      set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 14
+      set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
     else
       set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
     endif
