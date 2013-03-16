@@ -2,11 +2,11 @@
 
 My personal dotfiles.  
 
-* Note: These have only been tested on Ubuntu *
+*Note: These have only been tested on Ubuntu*
 
 ## Included Config Files
 - vim/gvim
-- tmux/tmux-powerline
+- tmux/tmux-powerlineh
 - zsh
 - git
 
@@ -21,7 +21,7 @@ $ cd .dotfiles
 $ ./install.sh
 ```
 
-## Vim/GVim
+## vim
 TODO 
 - Add Picture
 
@@ -29,3 +29,6 @@ TODO
 TODO
 - Add Picture
 
+## zsh
+TODO
+- Add Picture
