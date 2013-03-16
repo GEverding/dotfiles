@@ -10,10 +10,16 @@ bind C-a last-window
 bind C-n next-window
 bind C-p previous-window
 bind C-X swap-pane
+
 # Use Vi mode
 setw -g mode-keys vi
 setw -g mode-mouse on
 setw -g mouse-resize-pane on
+setw -g aggressive-resize on
+
+# Start windows/panes at 1 not 0
+set -g base-index                     1
+setw -g pane-base-index               1
 
 # More straight forward key bindings for splitting
 unbind %

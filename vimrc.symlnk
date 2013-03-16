@@ -111,54 +111,67 @@ filetype plugin indent on
 
 " Configuration Options {
 " wrap long lines
-set nowrap                      
+set nowrap
 " turn spelling off
 set nospell
 
 " Formatting {
 " indent at the same level of the previous line
-set autoindent                  
+set autoindent
 " use indents of 2 spaces
-set shiftwidth=2                
+set shiftwidth=2
+" use multiple of shiftwidth when indenting with '<' and '>'
+set shiftround
 " tabs are spaces, not tabs
-set expandtab                   
+set expandtab
 " an indentation every four columns
-set tabstop=2                   
+set tabstop=2
 " let backspace delete indent
-set softtabstop=2               
+set softtabstop=2
+
 " }
 
 " Searching {
+
+" highlight search terms
 set hlsearch
+" show search matches as you type
 set incsearch
 " case insensitive search
-set ignorecase                  
+set ignorecase
 " case sensitive when uc presentet history=1000
-set smartcase                   
+set smartcase
+
 " }
 
+" Hides Buffers instead of Closing them
 set hidden
 set ruler
 set history=1000
 set cursorline
 " better unix / windows compatibility
-set viewoptions=folds,options,cursor,unix,slash 
+set viewoptions=folds,options,cursor,unix,slash
 set mouse=a
 " abbrev. of messages (avoids 'hit enter')
-set shortmess+=filmnrxoOtT                         
+set shortmess+=filmnrxoOtT
 " better unix / windows compatibility
-set viewoptions=folds,options,cursor,unix,slash    
+set viewoptions=folds,options,cursor,unix,slash
 " allow for cursor beyond last character"
-set virtualedit=onemore                             
+set virtualedit=onemore
 set foldenable
 set colorcolumn=81
 set tags=tags;/
 
 set showmode
-set backspace=indent,eol,start  " backspace for dummies
-set whichwrap=b,s,h,l,<,>,[,]   " backspace and cursor keys wrap to
-set scrolljump=5                " lines to scroll when cursor leaves screen
-set scrolloff=3                 " minimum lines to keep above and below cursor
+" backspace for dummies
+set backspace=indent,eol,start
+" backspace and cursor keys wrap to
+set whichwrap=b,s,h,l,<,>,[,]
+" lines to scroll when cursor leaves screen
+set scrolljump=5
+" minimum lines to keep above and below cursor
+set scrolloff=3
+
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " }
 
@@ -183,32 +196,36 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " }
 
 " Re-Mappings {
-    inoremap jj <ESC>
-    let mapleader= ','
+  inoremap jj <ESC>
+  let mapleader= ','
 
-    " Better Movement
-    map <C-J> <C-W>j<C-W>_
-    map <C-K> <C-W>k<C-W>_
-    map <C-L> <C-W>l<C-W>_
-    map <C-H> <C-W>h<C-W>_
+  " Better Movement
+  map <C-J> <C-W>j<C-W>_
+  map <C-K> <C-W>k<C-W>_
+  map <C-L> <C-W>l<C-W>_
+  map <C-H> <C-W>h<C-W>_
 
-    " Clear Search 
-    nmap <silent> <leader>/ :nohlsearch<CR>
+  " Clear Search
+  nmap <silent> <leader>/ :nohlsearch<CR>
 
-    vnoremap < <gv
-    vnoremap > >gv
+  vnoremap < <gv
+  vnoremap > >gv
 
-    " Remove Whitepace 
-    nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+  " Remove Whitepace
+  nnoremap <silent> <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
-    "Switch number mode
-    nnoremap <F3> :NumbersToggle<CR>
+  "Switch number mode
+  nnoremap <F3> :NumbersToggle<CR>
 
-    " Set panes to same width
-    map <Leader>= <C-w>=
+  " Set panes to same width
+  map <Leader>= <C-w>=
 
-    " For when I forget to sudo
-    cmap w!! w !sudo tee % >/dev/null
+  " For when I forget to sudo
+  cmap w!! w !sudo tee % >/dev/null
+
+  " Quickly edit/reload the vimrc file
+  nmap <silent> <leader>ev :e $MYVIMRC<CR>
+  nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 " }
 
@@ -239,8 +256,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     set completeopt=menu,preview,longest
   " }
 
-  " neocomplcache {
-  
+  " NeoComplCache {
+
     let g:snips_author = 'Garrett Everding <garrett.everding92@gmail.com>'
     let g:neocomplcache_enable_at_startup = 1
     let g:neocomplcache_enable_camel_case_completion = 1
@@ -251,14 +268,15 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     let g:neocomplcache_max_list = 15
     let g:neocomplcache_auto_completion_start_length = 3
     let g:neocomplcache_force_overwrite_completefunc = 1
-    let g:neocomplcache_snippets_dir='~/.vim/bundle/snipmate-snippets/snippets'
+
+    " Tell Neosnippet about the other snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
 
     " AutoComplPop like behavior.
     let g:neocomplcache_enable_auto_select = 0
 
     " SuperTab like snippets behavior.
-    imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-    smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
+    "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
     " Plugin key-mappings.
     " Ctrl-k expands snippet & moves to next position
@@ -313,15 +331,30 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     endif
     " }
 
+  " Neosnippet {
+    " Plugin key-mappings.
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+    " For snippet_complete marker.
+    if has('conceal')
+      set conceallevel=2 concealcursor=i
+    endif
+  " }
+  
   " Indent Guides {
     let g:indent_guides_auto_colors = 1
     set ts=2 sw=2 et
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
     let g:indent_guides_enable_on_vim_startup = 0
-    if has('gui_running')
+    "if has('gui_running')
       let g:indent_guides_enable_on_vim_startup = 1
-    endif
+    "endif
   "}
 
   " UndoTree {
@@ -394,7 +427,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
         \ 'link': 'some_bad_symbolic_links',
         \ }
     " }
-    
+
 " }
 
 " Remove Bell {
