@@ -1,6 +1,6 @@
 .maid/*.log
-.vim/bundle
-.vim/tmp/bkup/*
-.vim/tmp/swap/*
-.vim/tmp/view/*
-.vim/tmp/views/*
+vim/vim/bundle
+vim/vim/tmp/bkup/*
+vim/vim/tmp/swap/*
+vim/vim/tmp/view/*
+vim/vim/tmp/views/*
