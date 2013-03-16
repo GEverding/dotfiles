@@ -1,10 +1,12 @@
 ## My dotfiles
 
-These are a collection of my dotfiles for Ubuntu/OSX.  
+My personal dotfiles.  
+
+* Note: These have only been tested on Ubuntu *
 
 ## Included Config Files
 - vim/gvim
-- tmux
+- tmux/tmux-powerline
 - zsh
 - git
 
@@ -14,16 +16,16 @@ will create symbolic links for all the dotfiles stored in the repo.  Before it c
 symbolic links it will backup any dotfile to ```/tmp/old``` if something goes wrong
 
 ```sh
-$ git clone git@github.com:GEverding/dotfiles.git dotfiles
-$ mv dotfiles .dotfiles
+$ git clone git@github.com:GEverding/dotfiles.git .dotfiles
 $ cd .dotfiles
-$ chmod +x setup_env.sh
-$ ./setup_env.sh
+$ ./install.sh
 ```
 
 ## Vim/GVim
-*Add Picture*
+TODO 
+- Add Picture
 
 ## tmux
-*Add Picture*
+TODO
+- Add Picture
 
