@@ -4,132 +4,145 @@
 " Basics {
 set nocp
 set background=dark
-syntax enable
-filetype plugin indent on
+filetype off
 " }
 
 " Vundle {
   set rtp+=~/.vim/bundle/vundle
   call vundle#rc()
 
-" Bundles {
-  Bundle 'gmarik/vundle'
-  Bundle 'vimwiki'
+  " Bundles {
+    Bundle 'gmarik/vundle'
+    Bundle 'vimwiki'
 
-  Bundle 'MarcWeber/vim-addon-mw-utils'
-  Bundle 'tomtom/tlib_vim'
-  if executable('ag')
-    Bundle 'epmatsw/ag.vim'
-  endif
-  Bundle 'scrooloose/nerdtree'
-  Bundle 'spf13/vim-colors'
-  Bundle 'flazz/vim-colorschemes'
+    Bundle 'MarcWeber/vim-addon-mw-utils'
+    Bundle 'tomtom/tlib_vim'
+    if executable('ag')
+      Bundle 'epmatsw/ag.vim'
+    endif
+    Bundle 'scrooloose/nerdtree'
+    Bundle 'spf13/vim-colors'
+    Bundle 'flazz/vim-colorschemes'
 
-  Bundle 'tpope/vim-surround'
-  "Bundle 'AutoClose'
-  Bundle 'kien/ctrlp.vim'
-  "Bundle 'vim-scripts/sessionman.vim'
-  Bundle 'matchit.zip'
-  "Bundle 'Lokaltog/vim-powerline'
-  Bundle 'Lokaltog/vim-easymotion'
-  Bundle 'godlygeek/csapprox'
+    Bundle 'tpope/vim-surround'
+    "Bundle 'AutoClose'
+    Bundle 'kien/ctrlp.vim'
+    "Bundle 'vim-scripts/sessionman.vim'
+    Bundle 'matchit.zip'
+    "Bundle 'Lokaltog/vim-powerline'
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'godlygeek/csapprox'
 
-  Bundle 'mbbill/undotree'
-  Bundle 'myusuf3/numbers.vim'
-  Bundle 'nathanaelkane/vim-indent-guides'
+    Bundle 'mbbill/undotree'
+    Bundle 'myusuf3/numbers.vim'
+    Bundle 'nathanaelkane/vim-indent-guides'
 
-  Bundle 'scrooloose/syntastic'
-  Bundle 'tpope/vim-fugitive'
-  Bundle 'scrooloose/nerdcommenter'
-  Bundle 'godlygeek/tabular'
+    Bundle 'scrooloose/syntastic'
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'scrooloose/nerdcommenter'
+    Bundle 'godlygeek/tabular'
 
-  Bundle 'Shougo/neocomplcache'
-  Bundle 'Shougo/neosnippet'
-  Bundle 'honza/snipmate-snippets'
+    Bundle 'Shougo/neocomplcache'
+    Bundle 'Shougo/neosnippet'
+    Bundle 'honza/snipmate-snippets'
 
-  " JSON {
-  "Bundle 'leshill/vim-json'
+    " Golang {
+    Bundle 'jnwhiteh/vim-golang.git'
+    " }
+
+    " JSON {
+    "Bundle 'leshill/vim-json'
+    " }
+
+    " HTML {
+    Bundle 'digitaltoad/vim-jade'
+    Bundle 'amirh/HTML-AutoCloseTag'
+    " }
+
+    " Coffeescript {
+    Bundle 'GEverding/coffeescript.vim'
+    " }
+
+    " CSS {
+    Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+    " }
+
+    " Javascript {
+    Bundle 'pangloss/vim-javascript'
+    " }
+
+    " Rust {
+    Bundle "bryanjswift/vim-rust"
+    " }
+
+    " Scala {
+    "Bundle 'derekwyatt/vim-scala'
+    "Bundle 'derekwyatt/vim-sbt'
+    " }
+
+    " PHP {
+    "Bundle 'spf13/PIV.git'
+    " }
+    "
+    " Python {
+    "Bundle 'python.vim'
+    "Bundle 'klen/python-mode'
+    "Bundle 'python_match.vim'
+    "Bundle 'pythoncomplete'
+    " }
+
+    "Ruby {
+    "Bundle 'vim-ruby/vim-ruby'
+    "Bundle 'tpope/vim-rails'
+    " }
+
+    " Haskell {
+    "Bundle 'lukerandall/haskellmode-vim'
+    " }
+
+    " Misc {
+    Bundle 'tpope/vim-markdown'
+    Bundle 'spf13/vim-preview'
+    " }
+    " C/C++ {
+    Bundle 'a.vim'
+    " }
   " }
-
-  " HTML {
-  Bundle 'digitaltoad/vim-jade'
-  Bundle 'amirh/HTML-AutoCloseTag'
-  " }
-
-  " Coffeescript {
-  Bundle 'GEverding/coffeescript.vim'
-  " }
-
-  " CSS {
-  Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-  " }
-
-  " Javascript {
-  Bundle 'pangloss/vim-javascript'
-  " }
-
-  " Scala {
-  Bundle 'derekwyatt/vim-scala'
-  Bundle 'derekwyatt/vim-sbt'
-  " }
-
-  " PHP {
-  Bundle 'spf13/PIV.git'
-  " }
-  "
-  " Python {
-  "Bundle 'python.vim'
-  "Bundle 'klen/python-mode'
-  "Bundle 'python_match.vim'
-  "Bundle 'pythoncomplete'
-  " }
-
-  "Ruby {
-  "Bundle 'vim-ruby/vim-ruby'
-  "Bundle 'tpope/vim-rails'
-  " }
-
-  " Haskell {
-  "Bundle 'lukerandall/haskellmode-vim'
-  " }
-
-  " Misc {
-  Bundle 'tpope/vim-markdown'
-  Bundle 'spf13/vim-preview'
-  " }
-"}
-
 " }
+
 
 " Colorscheme {
   if has('gui_running')
-    colorscheme wombat256-jb55
+    colorscheme molokai
   else
     colorscheme grb256
   endif
 " }
 
 " Configuration Options {
-" wrap long lines
-set nowrap
-" turn spelling off
-set nospell
+  filetype plugin indent on
+  syntax enable
+  " wrap long lines
+  set nowrap
+  " turn spelling off
+  set nospell
 
-" Formatting {
-" indent at the same level of the previous line
-set autoindent
-" use indents of 2 spaces
-set shiftwidth=2
-" use multiple of shiftwidth when indenting with '<' and '>'
-set shiftround
-" tabs are spaces, not tabs
-set expandtab
-" an indentation every four columns
-set tabstop=2
-" let backspace delete indent
-set softtabstop=2
+  " Formatting {
+    " indent at the same level of the previous line
+    set autoindent
+    " use indents of 2 spaces
+    set shiftwidth=2
+    " use multiple of shiftwidth when indenting with '<' and '>'
+    set shiftround
+    " tabs are spaces, not tabs
+    set expandtab
+    " an indentation every four columns
 
-" }
+    " let backspace delete indent
+    set softtabstop=2
+
+  " }
+
 
 " Searching {
 
@@ -183,9 +196,14 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
   au BufEnter,BufNew,BufRead *.less set filetype=less
   au BufEnter,BufNew,BufRead *.md set filetype=markdown
   au BufEnter,BufNew,BufRead *.scala set filetype=scala
+  au BufEnter,BufNew,BufRead *.rs set filetype=rust
+  au BufEnter,BufNew,BufRead *.go set filetype=go
+  
+  " format go code
+  au FileType go autocmd BufWritePre <buffer> Fmt
 
   " Remove White space and ^M
-  au FileType c,cpp,java,scala,php,javascript,python,twig,xml,yml,coffee,jade,markdown
+  au FileType c,cpp,java,scala,rust,go,php,javascript,python,twig,xml,yml,coffee,jade,markdown
         \ autocmd BufWritePre <buffer>
         \:call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
@@ -196,7 +214,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " }
 
 " Re-Mappings {
-  inoremap jj <ESC>
+  "inoremap jj <ESC>
   let mapleader= ','
 
   " Better Movement
@@ -276,7 +294,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     let g:neocomplcache_enable_auto_select = 0
 
     " SuperTab like snippets behavior.
-    "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
     " Plugin key-mappings.
     " Ctrl-k expands snippet & moves to next position
@@ -333,16 +351,16 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
   " Neosnippet {
     " Plugin key-mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
     " SuperTab like snippets behavior.
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    "imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+    "smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
     " For snippet_complete marker.
     if has('conceal')
-      set conceallevel=2 concealcursor=i
+      "set conceallevel=2 concealcursor=i
     endif
   " }
   

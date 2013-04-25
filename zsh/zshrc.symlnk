@@ -49,5 +49,7 @@ PATH=$PATH:$HOME/local/bin:$HOME/.cabal/bin:$HOME/bin:$HOME/.local/bin:$HOME/.de
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export GOROOT="$HOME/dev/software/go"
+export GRADLE_HOME="/home/geverding/dev/software/gradle-1.5"
+export PATH="/usr/local/heroku/bin:$GRADLE_HOME/bin:$GOROOT/bin:$PATH"
 #export PATH="/opt/chef/embedded/bin:$PATH"
