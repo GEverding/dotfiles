@@ -48,4 +48,4 @@
 [help]
   autocorrect = 1
 [push]
-	default = simple
+	default = current
