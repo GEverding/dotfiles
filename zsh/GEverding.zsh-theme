@@ -19,13 +19,13 @@ directory_name() {
   else
     if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
       # We're in a git repo.
-      local base=$(basename $(git rev-parse --show-toplevel))
+      BASE=$(basename $(git rev-parse --show-toplevel))
       if [[ $PWD = $(git rev-parse --show-toplevel) ]]; then
         # We're in the root.
         PROMPT_PATH=""
       else
         # We're not in the root. Display the git repo root.
-        PROMPT_PATH="%{$fg_bold[magenta]%}${[$base]}%{$reset_color%}/"
+        PROMPT_PATH="%{$fg_bold[magenta]%}${BASE}%{$reset_color%}/"
       fi
     else
       #tmp_path=$(print -P %3~)
