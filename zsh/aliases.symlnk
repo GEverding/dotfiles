@@ -1,25 +1,34 @@
-alias drupal-htaccess="wget -q --no-check-certificate -t 3 https://raw.github.com/drupal/drupal/7.x/.htaccess"
+
+alias open='gnome-open'
+alias vi='vim'
+alias tmux="tmux -2"
 
 alias cat='pygmentize -O style=monokai -f console256 -g'
 
+alias ll="ls -alhF --group-directories-first"
+alias l="ls -ACF --group-directories-first"
+alias la="ls -CF --group-directories-first"
+alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
+
+alias c='clear'
+
 alias qfind="find . -name "
 
-alias wotgobblemem='ps -o time,ppid,pid,nice,pcpu,pmem,user,comm -A | sort -n -k 6 | tail -15'
+alias wget='wget --content-disposition'
 
+alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
 
 mans ()
 {
-    man $1 | grep -iC2 --color=always $2 | less
+  man $1 | grep -iC2 --color=always $2 | less
 }
 
 
 function wikipedia() {
-    if [ "${1}" ]; then dig + short +TXT "${1}".wp.dg.cx; fi
+  if [ "${1}" ]; then dig + short +TXT "${1}".wp.dg.cx; fi
 }
 
 alias myip='curl ip.appspot.com'
-
-alias wget='wget --content-disposition'
 
 alias upgrade='apt-get update && apt-get upgrade && apt-get clean'
 
@@ -48,30 +57,29 @@ csscount() {
 
 # go back x directories
 b() {
-    str=""
-    count=0
-    while [ "$count" -lt "$1" ];
-    do
-        str=$str"../"
-        let count=count+1
-    done
-    cd $str
+  str=""
+  count=0
+  while [ "$count" -lt "$1" ];
+  do
+    str=$str"../"
+    let count=count+1
+  done
+  cd $str
 }
 
 # Create a file of xMbs
 cf() {
-    upload_file="upload_file.txt"
-    mbs=1048576
-    
-    if [ -n "$2" ]; then
-        upload_file="$2"
-    fi  
+  upload_file="upload_file.txt"
+  mbs=1048576
+  
+  if [ -n "$2" ]; then
+    upload_file="$2"
+  fi  
 
-    let size=`expr $mbs*$1`;
-    dd if=/dev/zero of="$upload_file" bs=$size count=1
+  let size=`expr $mbs*$1`;
+  dd if=/dev/zero of="$upload_file" bs=$size count=1
 }
 
-alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
 
 extract () {
     if [ -f $1 ] ; then
@@ -99,18 +107,12 @@ alias fact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
 
 alias freq='cut -f1 -d" " ~/.bash_history | sort | uniq -c | sort -nr | head -n 30'
 
-alias c='clear'
-
 ft()
 {
-find . -name "$2" -exec grep -il "$1" {} \;
+  find . -name "$2" -exec grep -il "$1" {} \;
 }
 
 alias mcc="rm -rf var/cache/* var/full_page_cache/*"
-
-alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
-
-alias open='gnome-open'
 
 alias wotgobblemem='ps -o time,ppid,pid,nice,pcpu,pmem,user,comm -A | sort -n -k 6 | tail -15'
 
