@@ -51,7 +51,7 @@ filetype off
     " }
 
     " JSON {
-    "Bundle 'leshill/vim-json'
+    Bundle 'leshill/vim-json'
     " }
 
     " HTML {
@@ -60,7 +60,8 @@ filetype off
     " }
 
     " Coffeescript {
-    Bundle 'GEverding/coffeescript.vim'
+    "Bundle 'GEverding/coffeescript.vim'
+    Bundle 'kchmck/vim-coffee-script.git'
     " }
 
     " CSS {
@@ -83,12 +84,16 @@ filetype off
     " PHP {
     "Bundle 'spf13/PIV.git'
     " }
-    "
+
     " Python {
-    "Bundle 'python.vim'
-    "Bundle 'klen/python-mode'
+    Bundle 'python.vim'
+    Bundle 'klen/python-mode'
     "Bundle 'python_match.vim'
     "Bundle 'pythoncomplete'
+    " }
+
+    " C/C++ {
+    Bundle 'a.vim'
     " }
 
     "Ruby {
@@ -104,12 +109,9 @@ filetype off
     Bundle 'tpope/vim-markdown'
     Bundle 'spf13/vim-preview'
     " }
-    " C/C++ {
-    Bundle 'a.vim'
-    " }
+
   " }
 " }
-
 
 " Colorscheme {
   if has('gui_running')
@@ -197,10 +199,14 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
   au BufEnter,BufNew,BufRead *.md set filetype=markdown
   au BufEnter,BufNew,BufRead *.scala set filetype=scala
   au BufEnter,BufNew,BufRead *.rs set filetype=rust
+  au BufEnter,BufNew,BufRead *.js set filetype=javascript
   au BufEnter,BufNew,BufRead *.go set filetype=go
-  
+  au BufEnter,BufNew,BufRead *.md set filetype=markdown
+
   " format go code
   au FileType go autocmd BufWritePre <buffer> Fmt
+
+  au Filetype md,markdown set spell
 
   " Remove White space and ^M
   au FileType c,cpp,java,scala,rust,go,php,javascript,python,twig,xml,yml,coffee,jade,markdown
@@ -211,10 +217,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
   " Open to last position
   au BufWinLeave *.* silent!  mkview
   au BufWinEnter *.* silent! loadview
+
 " }
 
 " Re-Mappings {
-  "inoremap jj <ESC>
+  inoremap jj <ESC>
   let mapleader= ','
 
   " Better Movement
@@ -245,6 +252,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
   nmap <silent> <leader>ev :e $MYVIMRC<CR>
   nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
+" }
+
+" Color Configurations {
+  syn match   myTodo   contained   "\<\(TODO\|FIXME\|NOTE\):"
+  hi def link myTodo Todo
 " }
 
 " Plugins {
@@ -363,7 +375,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
       "set conceallevel=2 concealcursor=i
     endif
   " }
-  
+
   " Indent Guides {
     let g:indent_guides_auto_colors = 1
     set ts=2 sw=2 et
@@ -446,6 +458,23 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
         \ }
     " }
 
+    " coffeetags {
+      if executable('coffeetags')
+        let g:tagbar_type_coffee = {
+              \ 'ctagsbin' : 'coffeetags',
+              \ 'ctagsargs' : '',
+              \ 'kinds' : [
+              \ 'f:functions',
+              \ 'o:object',
+              \ ],
+              \ 'sro' : ".",
+              \ 'kind2scope' : {
+              \ 'f' : 'object',
+              \ 'o' : 'object',
+              \ }
+              \ }
+      endif
+    " }
 " }
 
 " Remove Bell {
