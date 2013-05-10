@@ -7,7 +7,12 @@ prompt_char() {
   else
     color="%{$fg_bold[cyan]%}"
   fi
-  echo $color'❱'
+  git=$(git_prompt_info)
+  if [ ${#git} != 0 ]; then
+    echo $color' ❱'
+  else
+    echo $color'❱'
+  fi
 }
 
 directory_name() {
@@ -17,26 +22,12 @@ directory_name() {
   elif [[ $PWD = $HOME ]]; then
     PROMPT_PATH=""
   else
-    if [[ -d $(git rev-parse --show-toplevel 2>/dev/null) ]]; then
-      # We're in a git repo.
-      BASE=$(basename $(git rev-parse --show-toplevel))
-      if [[ $PWD = $(git rev-parse --show-toplevel) ]]; then
-        # We're in the root.
-        PROMPT_PATH=""
-      else
-        # We're not in the root. Display the git repo root.
-        PROMPT_PATH="%{$fg_bold[magenta]%}${BASE}%{$reset_color%}/"
-      fi
-    else
-      #tmp_path=$(print -P %3~)
-      PROMPT_PATH="${$(print -P %3~)%/*}/"
-    fi
+    PROMPT_PATH="${$(print -P %2~)%/*}/"
   fi
-
-  echo "%{$fg_bold[cyan]%}${PROMPT_PATH}%{$reset_color%}%{$fg[red]%}%1~%{$reset_color%}"
+  echo "%{$fg_bold[cyan]%}${PROMPT_PATH}%{$reset_color%}%{$fg_bold[yellow]%}%1~%{$reset_color%}"
 }
 
-PROMPT='$(directory_name)%{$fg_bold[blue]%} $(git_prompt_info) `prompt_char` %{$reset_color%}'
+PROMPT='%{$fg_bold[green]%}%m: $(directory_name)%{$fg_bold[blue]%} $(git_prompt_info)$(prompt_char) %{$reset_color%}'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"
