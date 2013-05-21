@@ -2,36 +2,31 @@
 " Author: Garrett Everding <garrett.everding92@gmail.com>
 
 " Basics {
-set nocp
-set background=dark
-filetype off
+  set nocp
+  syntax enable
+  filetype off
+
 " }
 
 " Vundle {
-  set rtp+=~/.vim/bundle/vundle
+  set rtp+=~/.vim/bundle/vundle/
   call vundle#rc()
 
   " Bundles {
     Bundle 'gmarik/vundle'
-    Bundle 'vimwiki'
+    "Bundle 'vimwiki'
 
-    Bundle 'MarcWeber/vim-addon-mw-utils'
-    Bundle 'tomtom/tlib_vim'
     if executable('ag')
       Bundle 'epmatsw/ag.vim'
     endif
     Bundle 'scrooloose/nerdtree'
-    Bundle 'spf13/vim-colors'
-    Bundle 'flazz/vim-colorschemes'
 
     Bundle 'tpope/vim-surround'
     "Bundle 'AutoClose'
     Bundle 'kien/ctrlp.vim'
-    "Bundle 'vim-scripts/sessionman.vim'
-    Bundle 'matchit.zip'
-    "Bundle 'Lokaltog/vim-powerline'
+    "Bundle 'matchit.zip'
     Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'godlygeek/csapprox'
+    "Bundle 'godlygeek/csapprox'
 
     Bundle 'mbbill/undotree'
     Bundle 'myusuf3/numbers.vim'
@@ -40,18 +35,18 @@ filetype off
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
     Bundle 'scrooloose/nerdcommenter'
-    Bundle 'godlygeek/tabular'
+    "Bundle 'godlygeek/tabular'
 
     Bundle 'Shougo/neocomplcache'
     Bundle 'Shougo/neosnippet'
-    Bundle 'honza/snipmate-snippets'
+    Bundle 'honza/vim-snippets'
 
     " Golang {
     Bundle 'jnwhiteh/vim-golang.git'
     " }
 
     " JSON {
-    Bundle 'leshill/vim-json'
+    "Bundle 'leshill/vim-json'
     " }
 
     " HTML {
@@ -73,7 +68,7 @@ filetype off
     " }
 
     " Rust {
-    Bundle "bryanjswift/vim-rust"
+    "Bundle 'bryanjswift/vim-rust'
     " }
 
     " Scala {
@@ -93,7 +88,7 @@ filetype off
     " }
 
     " C/C++ {
-    Bundle 'a.vim'
+    "Bundle 'a.vim'
     " }
 
     "Ruby {
@@ -107,23 +102,31 @@ filetype off
 
     " Misc {
     Bundle 'tpope/vim-markdown'
-    Bundle 'spf13/vim-preview'
+    "Bundle 'spf13/vim-preview'
     " }
 
   " }
+
+  filetype plugin indent on
+
 " }
 
 " Colorscheme {
+
   if has('gui_running')
-    colorscheme molokai
+    colorscheme mookai
+    "colorscheme wombat256-jb55
+    "colorscheme hybrid
+    set background=dark
   else
-    colorscheme grb256
+    colorscheme molokai
+    set background=dark
   endif
+
 " }
 
 " Configuration Options {
-  filetype plugin indent on
-  syntax enable
+
   " wrap long lines
   set nowrap
   " turn spelling off
@@ -145,73 +148,76 @@ filetype off
 
   " }
 
+  " Searching {
 
-" Searching {
+    " highlight search terms
+    set hlsearch
+    " show search matches as you type
+    set incsearch
+    " case insensitive search
+    set ignorecase
+    " case sensitive when uc presentet history=1000
+    set smartcase
 
-" highlight search terms
-set hlsearch
-" show search matches as you type
-set incsearch
-" case insensitive search
-set ignorecase
-" case sensitive when uc presentet history=1000
-set smartcase
+  " }
 
-" }
+  " Hides Buffers instead of Closing them
+  set hidden
+  set ruler
+  set history=1000
+  set cursorline
+  " better unix / windows compatibility
+  set mouse=a
+  " abbrev. of messages (avoids 'hit enter')
+  set shortmess+=filmnrxoOtT
+  " better unix / windows compatibility
+  set viewoptions=folds,options,cursor,unix,slash
+  " allow for cursor beyond last character"
+  set virtualedit=onemore
+  set foldenable
+  set colorcolumn=81
+  set tags=tags;/
 
-" Hides Buffers instead of Closing them
-set hidden
-set ruler
-set history=1000
-set cursorline
-" better unix / windows compatibility
-set viewoptions=folds,options,cursor,unix,slash
-set mouse=a
-" abbrev. of messages (avoids 'hit enter')
-set shortmess+=filmnrxoOtT
-" better unix / windows compatibility
-set viewoptions=folds,options,cursor,unix,slash
-" allow for cursor beyond last character"
-set virtualedit=onemore
-set foldenable
-set colorcolumn=81
-set tags=tags;/
+  set showmode
+  " backspace for dummies
+  set backspace=indent,eol,start
+  " backspace and cursor keys wrap to
+  set whichwrap=b,s,h,l,<,>,[,]
+  " lines to scroll when cursor leaves screen
+  set scrolljump=5
+  " minimum lines to keep above and below cursor
+  set scrolloff=4
 
-set showmode
-" backspace for dummies
-set backspace=indent,eol,start
-" backspace and cursor keys wrap to
-set whichwrap=b,s,h,l,<,>,[,]
-" lines to scroll when cursor leaves screen
-set scrolljump=5
-" minimum lines to keep above and below cursor
-set scrolloff=3
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " }
 
 " Autocommands {
-  au BufEnter,BufNew,BufRead *.do set syntax=sh
-  au BufEnter,BufNew,BufRead *.coffee set filetype=coffee
-  au BufEnter,BufNew,BufRead *.jade set filetype=jade
-  au BufEnter,BufNew,BufRead *.json set filetype=json
-  au BufEnter,BufNew,BufRead *.less set filetype=less
-  au BufEnter,BufNew,BufRead *.md set filetype=markdown
-  au BufEnter,BufNew,BufRead *.scala set filetype=scala
-  au BufEnter,BufNew,BufRead *.rs set filetype=rust
-  au BufEnter,BufNew,BufRead *.js set filetype=javascript
-  au BufEnter,BufNew,BufRead *.go set filetype=go
-  au BufEnter,BufNew,BufRead *.md set filetype=markdown
+
+  au BufEnter,BufNew,BufRead,BufReadPre *.do set ft=sh
+  au BufEnter,BufNew,BufRead,BufReadPre *.coffee set filetype=coffee
+  ""au BufEnter,BufNew,BufRead *.json set ft=json
+  au BufEnter,BufNew,BufRead,BufReadPre *.less set filetype=less
+  au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
+  ""au BufEnter,BufNew,BufRead *.scala set ft=scala
+  ""au BufEnter,BufNew,BufRead *.rs set ft=rust
+  au BufNew,BufRead,BufEnter,BufReadPre *.js set filetype=javascript
+  au BufEnter,BufNew,BufRead,BufReadPre *.go set filetype=go
+  au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
+  au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
 
   " format go code
   au FileType go autocmd BufWritePre <buffer> Fmt
 
-  au Filetype md,markdown set spell
+  au Filetype md,markdown set spell wrap
 
   " Remove White space and ^M
-  au FileType c,cpp,java,scala,rust,go,php,javascript,python,twig,xml,yml,coffee,jade,markdown
+  au FileType
+        \ c,cpp,java,scala,rust,
+        \ go,php,javascript,python,
+        \ twig,xml,yml,coffee,jade,markdown
         \ autocmd BufWritePre <buffer>
-        \:call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
+        \ :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
 
 
   " Open to last position
@@ -284,58 +290,82 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     " automatically open and close the popup menu / preview window
     au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
     set completeopt=menu,preview,longest
+
   " }
 
   " NeoComplCache {
 
-    let g:snips_author = 'Garrett Everding <garrett.everding92@gmail.com>'
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
     let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache_enable_camel_case_completion = 1
+    "let g:neocomplcache_enable_camel_case_completion = 1
     let g:neocomplcache_enable_smart_case = 1
-    let g:neocomplcache_enable_underbar_completion = 1
+    "let g:neocomplcache_enable_underbar_completion = 1
     let g:neocomplcache_min_syntax_length = 3
     let g:neocomplcache_enable_auto_delimiter = 1
     let g:neocomplcache_max_list = 15
     let g:neocomplcache_auto_completion_start_length = 3
     let g:neocomplcache_force_overwrite_completefunc = 1
 
-    " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+    " Enable heavy features.
+    " Use camel case completion.
+    "let g:neocomplcache_enable_camel_case_completion = 1
+    " Use underbar completion.
+    "let g:neocomplcache_enable_underbar_completion = 1
 
-    " AutoComplPop like behavior.
-    let g:neocomplcache_enable_auto_select = 0
-
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-    " Plugin key-mappings.
-    " Ctrl-k expands snippet & moves to next position
-    " <CR> chooses highlighted value
-    imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-    inoremap <expr><C-g>   neocomplcache#undo_completion()
-    inoremap <expr><C-l>   neocomplcache#complete_common_string()
-    inoremap <expr><CR>    neocomplcache#complete_common_string()
-
-
-    " <CR>: close popup
-    " <s-CR>: close popup and save indent.
-    inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
-    inoremap <expr><CR>  pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><s-TAB>  pumvisible() ? "\<C-p>" : "\<TAB>"
-
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplcache#close_popup()
+    " Define dictionary.
+    let g:neocomplcache_dictionary_filetype_lists = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 
     " Define keyword.
     if !exists('g:neocomplcache_keyword_patterns')
-     let g:neocomplcache_keyword_patterns = {}
+        let g:neocomplcache_keyword_patterns = {}
     endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplcache#undo_completion()
+    inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplcache#smart_close_popup() . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+    inoremap <expr><C-y>  neocomplcache#close_popup()
+    inoremap <expr><C-e>  neocomplcache#cancel_popup()
+    " Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
+
+    " For cursor moving in insert mode(Not recommended)
+    "inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
+    "inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
+    "inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
+    "inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
+    " Or set this.
+    "let g:neocomplcache_enable_cursor_hold_i = 1
+    " Or set this.
+    "let g:neocomplcache_enable_insert_char_pre = 1
+
+    " AutoComplPop like behavior.
+    "let g:neocomplcache_enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplcache_enable_auto_select = 1
+    "let g:neocomplcache_disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -343,41 +373,50 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
     " Enable heavy omni completion.
     if !exists('g:neocomplcache_omni_patterns')
       let g:neocomplcache_omni_patterns = {}
     endif
-    let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
     let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-    let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+    let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-
-    " For snippet_complete marker.
-    if has('conceal')
-       set conceallevel=2 concealcursor=i
-    endif
-    " }
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  " }
 
   " Neosnippet {
+  
     " Plugin key-mappings.
-    "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
     " SuperTab like snippets behavior.
-    "imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-    "smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<TAB>"
 
     " For snippet_complete marker.
     if has('conceal')
-      "set conceallevel=2 concealcursor=i
+      set conceallevel=2 concealcursor=i
     endif
+
+    " Enable snipMate compatibility feature.
+    let g:neosnippet#enable_snipmate_compatibility = 1
+
+    " Tell Neosnippet about the other snippets
+    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
   " }
 
   " Indent Guides {
-    let g:indent_guides_auto_colors = 1
+    let g:indent_guides_auto_colors = 0
     set ts=2 sw=2 et
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
@@ -403,7 +442,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
      map <leader>e :NERDTREEFind<CR>
 
      let NERDTreeShowBookmakrs=1
-     let NERDTreeIgnore=['\.git', '\~$', '\.swp$', '\.hg']
+     let NERDTreeIgnore=['\.git', '\.redo$', '\~$', '\.swp$', '\.hg']
      let NERDTreeChDirMode=0
      let NERDTreeShowBookmakrs=1
      let NERDTreeMouseMode=1
@@ -441,15 +480,16 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
    " }
 
    " VimWiki {
-     let g:vimwiki_list = [{'path': '~/.vimwiki',
-                          \ 'syntax': 'markdown', 'ext': '.md'}]
+     "let g:vimwiki_list = [{'path': '~/.vimwiki',
+                          "\ 'syntax': 'markdown', 'ext': '.md'}]
    " }
 
     " Colorcolums {
-        hi ColorColumn guibg=#2d2d2d ctermbg=246
+        "hi ColorColumn guibg=#2d2d2d ctermbg=246
     " }
 
     " ctrlp {
+    
       let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_custom_ignore = {
         \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -459,21 +499,21 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
     " }
 
     " coffeetags {
-      if executable('coffeetags')
-        let g:tagbar_type_coffee = {
-              \ 'ctagsbin' : 'coffeetags',
-              \ 'ctagsargs' : '',
-              \ 'kinds' : [
-              \ 'f:functions',
-              \ 'o:object',
-              \ ],
-              \ 'sro' : ".",
-              \ 'kind2scope' : {
-              \ 'f' : 'object',
-              \ 'o' : 'object',
-              \ }
-              \ }
-      endif
+      "if executable('coffeetags')
+        "let g:tagbar_type_coffee = {
+              "\ 'ctagsbin' : 'coffeetags',
+              "\ 'ctagsargs' : '',
+              "\ 'kinds' : [
+              "\ 'f:functions',
+              "\ 'o:object',
+              "\ ],
+              "\ 'sro' : ".",
+              "\ 'kind2scope' : {
+              "\ 'f' : 'object',
+              "\ 'o' : 'object',
+              "\ }
+              "\ }
+      "endif
     " }
 " }
 
@@ -507,7 +547,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
       set t_Co=256
     endif
   endif
-
 
 " }
 
