@@ -5,7 +5,6 @@
   set nocp
   syntax enable
   filetype off
-
 " }
 
 " Vundle {
@@ -35,10 +34,10 @@
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
     Bundle 'scrooloose/nerdcommenter'
-    "Bundle 'godlygeek/tabular'
+    Bundle 'godlygeek/tabular'
 
-    Bundle 'Shougo/neocomplcache'
-    Bundle 'Shougo/neosnippet'
+    Bundle 'Shougo/neocomplcache.vim'
+    Bundle 'Shougo/neosnippet.vim'
     Bundle 'honza/vim-snippets'
 
     " Golang {
@@ -114,7 +113,7 @@
 " Colorscheme {
 
   if has('gui_running')
-    colorscheme mookai
+    colorscheme molokai
     "colorscheme wombat256-jb55
     "colorscheme hybrid
     set background=dark
@@ -196,6 +195,7 @@
 
   au BufEnter,BufNew,BufRead,BufReadPre *.do set ft=sh
   au BufEnter,BufNew,BufRead,BufReadPre *.coffee set filetype=coffee
+  au BufEnter,BufNew,BufRead,BufReadPre *.jade set filetype=jade
   ""au BufEnter,BufNew,BufRead *.json set ft=json
   au BufEnter,BufNew,BufRead,BufReadPre *.less set filetype=less
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
@@ -247,6 +247,7 @@
 
   "Switch number mode
   nnoremap <F3> :NumbersToggle<CR>
+  map <F4> :call RCmd("make")<CR>
 
   " Set panes to same width
   map <Leader>= <C-w>=
@@ -255,8 +256,8 @@
   cmap w!! w !sudo tee % >/dev/null
 
   " Quickly edit/reload the vimrc file
-  nmap <silent> <leader>ev :e $MYVIMRC<CR>
-  nmap <silent> <leader>sv :so $MYVIMRC<CR>
+  nmap <silent> <leader>ev :e ~/.vimrc<CR>
+  nmap <silent> <leader>sv :so ~/.vimrc <CR>
 
 " }
 
@@ -411,7 +412,7 @@
     let g:neosnippet#enable_snipmate_compatibility = 1
 
     " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/'
 
   " }
 
@@ -421,9 +422,7 @@
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
     let g:indent_guides_enable_on_vim_startup = 0
-    "if has('gui_running')
-      let g:indent_guides_enable_on_vim_startup = 1
-    "endif
+    let g:indent_guides_enable_on_vim_startup = 1
   "}
 
   " UndoTree {
@@ -453,7 +452,18 @@
      let g:nerdtree_tabs_open_on_gui_startup=0
    " }
 
-   " vim-powerline {
+    " Tabularize {
+    
+      if exists(":Tabularize")
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:\zs<CR>
+        vmap <Leader>a: :Tabularize /:\zs<CR>
+      endif
+
+    " }
+
+   " Powerline {
 
      " setup powerline
      set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
@@ -597,6 +607,14 @@
       call cursor(l, c)
     endfunction
   " }
+
+  " function: Execute Command {
+    function! RCmd(cmd)
+      :silent! exe '!echo "cd ' . getcwd() . ' && ' . a:cmd . '" > /tmp/cmds'
+      :redraw!
+    endfunction
+  " }
+
 " }
 
 " Setup Local gvimrc {
