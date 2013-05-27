@@ -66,8 +66,8 @@ hi MoreMsg         guifg=#E6DB74
 hi Operator        guifg=#F92672
 
 " complete menu
-hi Pmenu           guifg=#66D9EF guibg=#000000
-hi PmenuSel                      guibg=#808080
+hi Pmenu           guifg=#5fd7ff guibg=#000000
+hi PmenuSel        guifg=#000000 guibg=#5fd7ff
 hi PmenuSbar                     guibg=#080808
 hi PmenuThumb      guifg=#66D9EF
 
@@ -88,8 +88,8 @@ if has("spell")
     hi SpellRare   guisp=#FFFFFF gui=undercurl
 endif
 
-hi IndentGuidesOdd  ctermbg=234
-hi IndentGuidesEven ctermbg=236
+hi IndentGuidesOdd  guibg=#262626 ctermbg=234
+hi IndentGuidesEven guibg=#3A3A3A ctermbg=236
 
 hi Statement       guifg=#F92672               gui=bold
 hi StatusLine      guifg=#455354 guibg=fg
