@@ -9,6 +9,7 @@
 
 " Vundle {
   set rtp+=~/.vim/bundle/vundle/
+  set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
   call vundle#rc()
 
   " Bundles {
@@ -18,14 +19,17 @@
     if executable('ag')
       Bundle 'epmatsw/ag.vim'
     endif
+
     Bundle 'scrooloose/nerdtree'
 
     Bundle 'tpope/vim-surround'
     "Bundle 'AutoClose'
     Bundle 'kien/ctrlp.vim'
     "Bundle 'matchit.zip'
+    Bundle 'Lokaltog/powerline'
+    "Bundle 'Lokaltog/vim-powerline'
     Bundle 'Lokaltog/vim-easymotion'
-    "Bundle 'godlygeek/csapprox'
+    Bundle 'godlygeek/csapprox'
 
     Bundle 'mbbill/undotree'
     Bundle 'myusuf3/numbers.vim'
@@ -41,11 +45,11 @@
     Bundle 'honza/vim-snippets'
 
     " Golang {
-    Bundle 'jnwhiteh/vim-golang.git'
+    Bundle 'jnwhiteh/vim-golang'
     " }
 
     " JSON {
-    "Bundle 'leshill/vim-json'
+    Bundle 'leshill/vim-json'
     " }
 
     " HTML {
@@ -80,8 +84,8 @@
     " }
 
     " Python {
-    Bundle 'python.vim'
-    Bundle 'klen/python-mode'
+    "Bundle 'python.vim'
+    "Bundle 'klen/python-mode'
     "Bundle 'python_match.vim'
     "Bundle 'pythoncomplete'
     " }
@@ -176,8 +180,9 @@
   set foldenable
   set colorcolumn=81
   set tags=tags;/
-
-  set showmode
+  set laststatus=2 " Always display the statusline in all windows
+  set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+  "set showmode
   " backspace for dummies
   set backspace=indent,eol,start
   " backspace and cursor keys wrap to
@@ -196,11 +201,11 @@
   au BufEnter,BufNew,BufRead,BufReadPre *.do set ft=sh
   au BufEnter,BufNew,BufRead,BufReadPre *.coffee set filetype=coffee
   au BufEnter,BufNew,BufRead,BufReadPre *.jade set filetype=jade
-  ""au BufEnter,BufNew,BufRead *.json set ft=json
+  au BufEnter,BufNew,BufRead *.json set ft=json
   au BufEnter,BufNew,BufRead,BufReadPre *.less set filetype=less
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
-  ""au BufEnter,BufNew,BufRead *.scala set ft=scala
-  ""au BufEnter,BufNew,BufRead *.rs set ft=rust
+  au BufEnter,BufNew,BufRead *.scala set ft=scala
+  au BufEnter,BufNew,BufRead *.rs set ft=rust
   au BufNew,BufRead,BufEnter,BufReadPre *.js set filetype=javascript
   au BufEnter,BufNew,BufRead,BufReadPre *.go set filetype=go
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
@@ -231,10 +236,10 @@
   let mapleader= ','
 
   " Better Movement
-  map <C-J> <C-W>j<C-W>_
-  map <C-K> <C-W>k<C-W>_
-  map <C-L> <C-W>l<C-W>_
-  map <C-H> <C-W>h<C-W>_
+  map <C-J> <C-W>j<C-W>
+  map <C-K> <C-W>k<C-W>
+  map <C-L> <C-W>l<C-W>
+  map <C-H> <C-W>h<C-W>
 
   " Clear Search
   nmap <silent> <leader>/ :nohlsearch<CR>
@@ -454,23 +459,24 @@
 
     " Tabularize {
     
-      if exists(":Tabularize")
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:\zs<CR>
-        vmap <Leader>a: :Tabularize /:\zs<CR>
-      endif
+      nmap <Leader>a= :Tabularize /=<CR>
+      vmap <Leader>a= :Tabularize /=<CR>
+      nmap <Leader>a: :Tabularize /:\zs<CR>
+      vmap <Leader>a: :Tabularize /:\zs<CR>
 
     " }
 
    " Powerline {
 
      " setup powerline
-     set rtp+=~/.local/lib/python2.7/site-packages/powerline/bindings/vim
-     let g:Powerline_symbols = 'fancy'
+     ""source ~/.local/lib/python3.2/site-packages/powerline/bindings/vim/plugin/powerline.vim
+     "python3 from powerline.vim import setup as powerline_setup
+     "python3 powerline_setup()
+     "python3 del powerline_setup
+
+     "let g:Powerline_symbols='fancy'
 
      if has('statusline')
-       set laststatus=2
        " Broken down into easily includeable segments
        set statusline=%<%f\    " Filename
        set statusline+=%*
