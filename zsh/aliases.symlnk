@@ -3,6 +3,8 @@ alias open='gnome-open'
 alias vi='vim'
 alias tmux="tmux -2"
 
+alias so="source"
+alias soz="source $HOME/.zshrc"
 alias cat='pygmentize -O style=monokai -f console256 -g'
 
 alias ll="ls -alhF --group-directories-first"
