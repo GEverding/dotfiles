@@ -5,6 +5,18 @@
 [credential]
   helper = cache
 
+[url "git@github.com:"]
+  insteadOf = gh:
+
+[url "dev.monstercat.com:git/monstercat/"]
+  insteadOf = mcat:
+
+[push]
+	default = current
+
+[core]
+	editor = vim
+
 [alias]
   st = status -sb
   co = checkout
@@ -45,9 +57,3 @@
 [merge]
   tool = meld
 
-[help]
-  autocorrect = 1
-[push]
-	default = current
-[core]
-	editor = vim
