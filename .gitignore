@@ -4,3 +4,4 @@ vim/vim/tmp/bkup/*
 vim/vim/tmp/swap/*
 vim/vim/tmp/view/*
 vim/vim/tmp/views/*
+vim/vim/.cache/*

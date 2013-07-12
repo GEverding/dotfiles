@@ -3,13 +3,13 @@
 
 " Basics {
   set nocp
-  syntax enable
+
   filetype off
 " }
 
 " Vundle {
   set rtp+=~/.vim/bundle/vundle/
-  set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+  "set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
   call vundle#rc()
 
   " Bundles {
@@ -26,19 +26,26 @@
     "Bundle 'AutoClose'
     Bundle 'kien/ctrlp.vim'
     "Bundle 'matchit.zip'
-    Bundle 'Lokaltog/powerline'
-    "Bundle 'Lokaltog/vim-powerline'
-    Bundle 'Lokaltog/vim-easymotion'
     Bundle 'godlygeek/csapprox'
-
+    Bundle 'kshenoy/vim-signature.git'
     Bundle 'mbbill/undotree'
     Bundle 'myusuf3/numbers.vim'
     Bundle 'nathanaelkane/vim-indent-guides'
 
+    "Bundle 'Lokaltog/powerline'
+    "Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'bling/vim-airline'
+
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
+    Bundle 'airblade/vim-gitgutter'
     Bundle 'scrooloose/nerdcommenter'
     Bundle 'godlygeek/tabular'
+
+    "Bundle 'Shougo/unite.vim'
+    "Bundle 'Shougo/unite-outline'
+    "Bundle 'Shougo/vimproc.vim'
+    "Bundle 'zhaocai/linepower.vim'
 
     Bundle 'Shougo/neocomplcache.vim'
     Bundle 'Shougo/neosnippet.vim'
@@ -75,8 +82,8 @@
     " }
 
     " Scala {
-    "Bundle 'derekwyatt/vim-scala'
-    "Bundle 'derekwyatt/vim-sbt'
+    Bundle 'derekwyatt/vim-scala'
+    Bundle 'derekwyatt/vim-sbt'
     " }
 
     " PHP {
@@ -91,7 +98,7 @@
     " }
 
     " C/C++ {
-    "Bundle 'a.vim'
+    Bundle 'a.vim'
     " }
 
     "Ruby {
@@ -111,16 +118,17 @@
   " }
 
   filetype plugin indent on
+  syntax enable
 
 " }
 
 " Colorscheme {
 
   if has('gui_running')
+    set background=dark
     colorscheme molokai
     "colorscheme wombat256-jb55
     "colorscheme hybrid
-    set background=dark
   else
     colorscheme molokai
     set background=dark
@@ -201,7 +209,7 @@
   au BufEnter,BufNew,BufRead,BufReadPre *.do set ft=sh
   au BufEnter,BufNew,BufRead,BufReadPre *.coffee set filetype=coffee
   au BufEnter,BufNew,BufRead,BufReadPre *.jade set filetype=jade
-  au BufEnter,BufNew,BufRead *.json set ft=json
+  "au BufEnter,BufNew,BufRead *.json set ft=json
   au BufEnter,BufNew,BufRead,BufReadPre *.less set filetype=less
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
   au BufEnter,BufNew,BufRead *.scala set ft=scala
@@ -236,14 +244,25 @@
   let mapleader= ','
 
   " Better Movement
-  map <C-J> <C-W>j<C-W>
-  map <C-K> <C-W>k<C-W>
-  map <C-L> <C-W>l<C-W>
-  map <C-H> <C-W>h<C-W>
+  map <C-J> <C-W>j<C-W>_
+  map <C-K> <C-W>k<C-W>_
+  map <C-L> <C-W>l<C-W>_
+  map <C-H> <C-W>h<C-W>_
+
+  " Tab Switching
+  map <A-1> 1gt
+  map <A-2> 2gt
+  map <A-3> 3gt
+  map <A-4> 4gt
 
   " Clear Search
   nmap <silent> <leader>/ :nohlsearch<CR>
 
+  " screen line scroll
+  nnoremap <silent> j gj
+  nnoremap <silent> k gk
+
+  " reselect visual block after indent
   vnoremap < <gv
   vnoremap > >gv
 
@@ -252,7 +271,6 @@
 
   "Switch number mode
   nnoremap <F3> :NumbersToggle<CR>
-  map <F4> :call RCmd("make")<CR>
 
   " Set panes to same width
   map <Leader>= <C-w>=
@@ -264,10 +282,19 @@
   nmap <silent> <leader>ev :e ~/.vimrc<CR>
   nmap <silent> <leader>sv :so ~/.vimrc <CR>
 
+  cmap c! call RCmd("")<Left><Left>
+  map <F4> :call RCmd("make")<CR>
+  map <F6> :call RCmd("npm test")<CR>
+
+  cmap Agc Ag -G coffee$ ""<Left>
+  cmap Agh Ag -G hs$ ""<Left>
+  cmap Agj Ag -G jade$ ""<Left>
+  cmap Agl Ag -G less$ ""<Left>
+
 " }
 
 " Color Configurations {
-  syn match   myTodo   contained   "\<\(TODO\|FIXME\|NOTE\):"
+  syn match   myTodo   contained   "\<\(TODO\|FIXME\|HACK\|NOTE\):"
   hi def link myTodo Todo
 " }
 
@@ -394,7 +421,7 @@
   " }
 
   " Neosnippet {
-  
+
     " Plugin key-mappings.
     imap <C-k>     <Plug>(neosnippet_expand_or_jump)
     smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -445,20 +472,20 @@
      map <C-e> :NERDTreeToggle<CR>
      map <leader>e :NERDTREEFind<CR>
 
-     let NERDTreeShowBookmakrs=1
+     "let NERDTreeShowBookmakrs=1
      let NERDTreeIgnore=['\.git', '\.redo$', '\~$', '\.swp$', '\.hg']
-     let NERDTreeChDirMode=0
-     let NERDTreeShowBookmakrs=1
-     let NERDTreeMouseMode=1
+     "let NERDTreeChDirMode=1
+     "let NERDTreeShowBookmakrs=1
+     "let NERDTreeMouseMode=1
      let NERDTreeQuitOnOpen=1
-     let NEDTreeMouseMode=2
-     let NERDTreeShowHidden=1
-     let NERDTreeKeepTreeInNewTab=1
-     let g:nerdtree_tabs_open_on_gui_startup=0
+     "let NEDTreeMouseMode=2
+     "let NERDTreeShowHidden=1
+     "let NERDTreeKeepTreeInNewTab=1
+     "let g:nerdtree_tabs_open_on_gui_startup=0
    " }
 
     " Tabularize {
-    
+
       nmap <Leader>a= :Tabularize /=<CR>
       vmap <Leader>a= :Tabularize /=<CR>
       nmap <Leader>a: :Tabularize /:\zs<CR>
@@ -505,31 +532,97 @@
     " }
 
     " ctrlp {
-    
       let g:ctrlp_working_path_mode = 'ra'
       let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-        \ 'file': '\v\.(exe|so|dll|class)$',
-        \ 'link': 'some_bad_symbolic_links',
-        \ }
+        \ 'dir':  '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\',
+        \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$' }
+      let g:ctrlp_extensions = ['tag']
+      "let g:ctrlp_user_command = {
+      "    \ 'types': {
+      "        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+      "        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+      "    \ },
+      "    \ 'fallback': 'find %s -type f'
+      "\ }
     " }
 
-    " coffeetags {
-      "if executable('coffeetags')
-        "let g:tagbar_type_coffee = {
-              "\ 'ctagsbin' : 'coffeetags',
-              "\ 'ctagsargs' : '',
-              "\ 'kinds' : [
-              "\ 'f:functions',
-              "\ 'o:object',
-              "\ ],
-              "\ 'sro' : ".",
-              "\ 'kind2scope' : {
-              "\ 'f' : 'object',
-              "\ 'o' : 'object',
-              "\ }
-              "\ }
+    " unit.vim {
+      "call unite#filters#matcher_default#use(['matcher_fuzzy'])
+      "call unite#filters#sorter_default#use(['sorter_rank'])
+      "call unite#set_profile('files', 'smartcase', 1)
+      "call unite#custom#source('line,outline','matchers,ignore_pattern,max_candidates','matcher_fuzzy,\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\,10')
+
+      "let g:unite_data_directory='~/.vim/.cache/unite'
+      "let g:unite_enable_start_insert=1
+      "let g:unite_source_history_yank_enable=1
+      "let g:unite_source_rec_max_cache_files=5000
+      "let g:unite_prompt='» '
+      "let g:unite_force_overwrite_statusline = 0
+
+      "if executable('ag')
+        "let g:unite_source_grep_command='ag'
+        "let g:unite_source_grep_default_opts='--nocolor --nogroup --hidden'
+        "let g:unite_source_grep_recursive_opt=''
+      "elseif executable('ack')
+        "let g:unite_source_grep_command='ack'
+        "let g:unite_source_grep_default_opts='--no-heading --no-color -a'
+        "let g:unite_source_grep_recursive_opt=''
       "endif
+
+      "function! s:unite_settings()
+        "nmap <buffer> Q <plug>(unite_exit)
+        "nmap <buffer> <esc> <plug>(unite_exit)
+        "imap <buffer> <esc> <plug>(unite_exit)
+      "endfunction
+      "autocmd FileType unite call s:unite_settings()
+
+      "nmap <space> [unite]
+      "nnoremap [unite] <nop>
+
+      "nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async buffer file_mru bookmark<cr><c-u>
+      "nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async<cr><c-u>
+
+      "nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+      "nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+      "nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer<cr>
+      "nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+      "nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+      "nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
+
+    "}
+
+    " unite-outline {
+      "nnoremap <silent> [unite]o :<C-u>Unite -auto-resize -buffer-name=outline outline<cr>
+    "}
+    " airline {
+      "change the theme (available options: dark, light, simple, badwolf)
+      let g:airline_theme='badwolf'
+
+      let g:airline_powerline_fonts=1
+      let g:airline_left_sep = ''
+      let g:airline_right_sep = ''
+      let g:airline_fugitive_prefix = ' '
+      let g:airline_readonly_symbol = ''
+      let g:airline_linecolumn_prefix = ' '
+    " }
+
+
+    " coffeetags {
+      if executable('coffeetags')
+        let g:tagbar_type_coffee = {
+              \ 'ctagsbin' : 'coffeetags',
+              \ 'ctagsargs' : '',
+              \ 'kinds' : [
+              \ 'f:functions',
+              \ 'o:object',
+              \ ],
+              \ 'sro' : ".",
+              \ 'kind2scope' : {
+              \ 'f' : 'object',
+              \ 'o' : 'object',
+              \ }
+              \ }
+      endif
     " }
 " }
 
@@ -549,7 +642,7 @@
     set lines=40
     if has('gui_gtk2')
       "set guifont=Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
-      set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 13
+      set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
     else
       set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
     endif
@@ -620,6 +713,12 @@
       :redraw!
     endfunction
   " }
+  "
+  function! RCmd(cmd)
+    :silent! exe '!echo "cd `pwd` && ' . a:cmd . '" > /tmp/cmds'
+    :redraw!
+  endfunction
+
 
 " }
 
