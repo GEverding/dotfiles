@@ -15,8 +15,8 @@ $ sudo apt-get install libncurses5-dev \
 ```
 
 ## Install
-```
 
+```
 $ hg clone http://code.google.com/p/vim/
 $ hg update default
 $ ./configure --prefix=/usr/local \
@@ -26,13 +26,12 @@ $ ./configure --prefix=/usr/local \
   --with-tlib=ncurses \
   --enable-multibyte \
   --enable-pythoninterp \
-  --with-mac-arch-x86_64 \
-  --with-feature=huge \
+  --with-features=huge \
   --enable-gui=gnome2 \
-  --with-compiledby="GEverding <garrett.everding92@gmail.com>"
+  --with-compiledby="GEverding <garrett.everding92@gmail.com>" \
   --enable-cscope
 $ make
-$ sudo make install
+$ make install
 ```
 
 
