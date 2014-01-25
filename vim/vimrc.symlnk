@@ -27,7 +27,7 @@
     Bundle 'kien/ctrlp.vim'
     "Bundle 'matchit.zip'
     Bundle 'godlygeek/csapprox'
-    Bundle 'kshenoy/vim-signature.git'
+    "Bundle 'kshenoy/vim-signature.git'
     Bundle 'mbbill/undotree'
     Bundle 'myusuf3/numbers.vim'
     Bundle 'nathanaelkane/vim-indent-guides'
@@ -50,6 +50,8 @@
     Bundle 'Shougo/neocomplcache.vim'
     Bundle 'Shougo/neosnippet.vim'
     Bundle 'honza/vim-snippets'
+
+    Bundle "majutsushi/tagbar"
 
     " Golang {
     Bundle 'jnwhiteh/vim-golang'
@@ -624,6 +626,48 @@
               \ }
       endif
     " }
+
+    " tagbar {
+      nmap <F3> :TagbarToggle<CR>
+    " }
+
+    " lushtags {
+      if executable('lushtags')
+          let g:tagbar_type_haskell = {
+              \ 'ctagsbin' : 'lushtags',
+              \ 'ctagsargs' : '--ignore-parse-error --',
+              \ 'kinds' : [
+                  \ 'm:module:0',
+                  \ 'e:exports:1',
+                  \ 'i:imports:1',
+                  \ 't:declarations:0',
+                  \ 'd:declarations:1',
+                  \ 'n:declarations:1',
+                  \ 'f:functions:0',
+                  \ 'c:constructors:0'
+              \ ],
+              \ 'sro' : '.',
+              \ 'kind2scope' : {
+                  \ 'd' : 'data',
+                  \ 'n' : 'newtype',
+                  \ 'c' : 'constructor',
+                  \ 't' : 'type'
+              \ },
+              \ 'scope2kind' : {
+                  \ 'data' : 'd',
+                  \ 'newtype' : 'n',
+                  \ 'constructor' : 'c',
+                  \ 'type' : 't'
+              \ }
+          \ }
+      endif
+    " }
+
+    " syntastic {
+    let g:syntastic_c_check_header = 1
+    let g:syntastic_c_compiler = 'clang'
+    " }
+
 " }
 
 " Remove Bell {
