@@ -110,6 +110,9 @@
 
     " Haskell {
     "Bundle 'lukerandall/haskellmode-vim'
+    Bundle "dag/vim2hs"
+    Bundle "ujihisa/neco-ghc"
+    Bundle "eagletmt/ghcmod-vim"
     " }
 
     " Misc {
