@@ -166,7 +166,7 @@ setup_fonts()
   fi
 
   info "Installing Patched Fonts"
-  git_clone https://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
+  #git_clone https://gist.github.com/1630581.git $HOME/.fonts/ttf-dejavu-powerline
   git_clone git://github.com/Lokaltog/powerline-fonts.git $HOME/.fonts/powerline-fonts
   fc-cache -vf ~/.fonts
   success "Finished Installing Patched Fonts"

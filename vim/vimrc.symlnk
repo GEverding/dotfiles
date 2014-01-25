@@ -26,6 +26,7 @@
     "Bundle 'AutoClose'
     Bundle 'kien/ctrlp.vim'
     "Bundle 'matchit.zip'
+    Bundle "taglist.vim"
     Bundle 'godlygeek/csapprox'
     "Bundle 'kshenoy/vim-signature.git'
     Bundle 'mbbill/undotree'
@@ -42,19 +43,17 @@
     Bundle 'scrooloose/nerdcommenter'
     Bundle 'godlygeek/tabular'
 
-    "Bundle 'Shougo/unite.vim'
-    "Bundle 'Shougo/unite-outline'
-    "Bundle 'Shougo/vimproc.vim'
-    "Bundle 'zhaocai/linepower.vim'
+    Bundle 'Shougo/vimproc.vim'
 
     Bundle 'Shougo/neocomplcache.vim'
     Bundle 'Shougo/neosnippet.vim'
+    Bundle 'Shougo/neosnippet-snippets.git'
     Bundle 'honza/vim-snippets'
 
     Bundle "majutsushi/tagbar"
 
     " Golang {
-    Bundle 'jnwhiteh/vim-golang'
+    "Bundle 'jnwhiteh/vim-golang'
     " }
 
     " JSON {
@@ -64,6 +63,7 @@
     " HTML {
     Bundle 'digitaltoad/vim-jade'
     Bundle 'amirh/HTML-AutoCloseTag'
+    Bundle 'othree/html5.vim'
     " }
 
     " Coffeescript {
@@ -86,6 +86,7 @@
     " Scala {
     Bundle 'derekwyatt/vim-scala'
     Bundle 'derekwyatt/vim-sbt'
+    Bundle 'gre/play2vim'
     " }
 
     " PHP {
@@ -100,7 +101,7 @@
     " }
 
     " C/C++ {
-    Bundle 'a.vim'
+    "Bundle 'a.vim'
     " }
 
     "Ruby {
@@ -110,9 +111,19 @@
 
     " Haskell {
     "Bundle 'lukerandall/haskellmode-vim'
-    Bundle "dag/vim2hs"
-    Bundle "ujihisa/neco-ghc"
     Bundle "eagletmt/ghcmod-vim"
+    Bundle "eagletmt/neco-ghc"
+    Bundle "dag/vim2hs"
+    " }
+
+    " SQL {
+    "Bundle 'SQLComplete.vim'
+    "Bundle 'SQLUtilities'
+    " }
+
+    " SQL {
+    "Bundle 'SQLComplete.vim'
+    "Bundle 'SQLUtilities'
     " }
 
     " Misc {
@@ -162,6 +173,8 @@
     " let backspace delete indent
     set softtabstop=2
 
+    " Display Numbers
+    set number
   " }
 
   " Searching {
@@ -188,6 +201,7 @@
   set shortmess+=filmnrxoOtT
   " better unix / windows compatibility
   set viewoptions=folds,options,cursor,unix,slash
+
   " allow for cursor beyond last character"
   set virtualedit=onemore
   set foldenable
@@ -203,9 +217,21 @@
   " lines to scroll when cursor leaves screen
   set scrolljump=5
   " minimum lines to keep above and below cursor
-  set scrolloff=4
+  set scrolloff=5
 
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class
+
+  set nu
+
+  set backup
+  set backupdir=~/.vimbackup
+  if has('persistent_undo')
+    set undofile                " Save undo's after file closes
+    set undodir=$HOME/.vimundo  " where to save undo histories
+    set undolevels=1000         " How many undos
+    set undoreload=10000        " number of lines to save for undo
+  endif
+  set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " }
 
@@ -223,6 +249,15 @@
   au BufEnter,BufNew,BufRead,BufReadPre *.go set filetype=go
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
+  " play framework
+  au BufRead,BufNewFile *.scala.html set filetype=html syntax=play2-html
+  au BufRead,BufNewFile */conf/\(*\|\)routes set filetype=play2-routes
+  au BufRead,BufNewFile */conf/*.conf setf play2-conf
+  au BufRead,BufNewFile plugins.sbt set filetype=scala
+
+  "au BufNewFile,BufRead,BufEnter *.py set tabstop=4 softtabstop=4 shiftwidth=4
+
+  "au BufNewFile,BufRead,BufEnter *.py set tabstop=4 softtabstop=4 shiftwidth=4
 
   " format go code
   au FileType go autocmd BufWritePre <buffer> Fmt
@@ -230,13 +265,7 @@
   au Filetype md,markdown set spell wrap
 
   " Remove White space and ^M
-  au FileType
-        \ c,cpp,java,scala,rust,
-        \ go,php,javascript,python,
-        \ twig,xml,yml,coffee,jade,markdown
-        \ autocmd BufWritePre <buffer>
-        \ :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
+  autocmd FileType c,cpp,java,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 
   " Open to last position
   au BufWinLeave *.* silent!  mkview
@@ -288,8 +317,10 @@
   nmap <silent> <leader>sv :so ~/.vimrc <CR>
 
   cmap c! call RCmd("")<Left><Left>
+  cmap <Leader>c call RCmd("./create_component ")<Left><Left>
   map <F4> :call RCmd("make")<CR>
-  map <F6> :call RCmd("npm test")<CR>
+  map <F6> :call RCmd("make tests")<CR>
+  "map <F6> :call RCmd("npm test")<CR>
 
   cmap Agc Ag -G coffee$ ""<Left>
   cmap Agh Ag -G hs$ ""<Left>
@@ -299,7 +330,7 @@
 " }
 
 " Color Configurations {
-  syn match   myTodo   contained   "\<\(TODO\|FIXME\|HACK\|NOTE\):"
+  syn match  myTodo contained   "\<\(TODO\|FIXME\|HACK\|NOTE\):"
   hi def link myTodo Todo
 " }
 
@@ -411,6 +442,7 @@
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
     " Enable heavy omni completion.
     if !exists('g:neocomplcache_omni_patterns')
@@ -478,7 +510,7 @@
      map <leader>e :NERDTREEFind<CR>
 
      "let NERDTreeShowBookmakrs=1
-     let NERDTreeIgnore=['\.git', '\.redo$', '\~$', '\.swp$', '\.hg']
+     let NERDTreeIgnore=['\.git', '\.redo$', '\~$', '\.swp$', '\.hg', '\.class']
      "let NERDTreeChDirMode=1
      "let NERDTreeShowBookmakrs=1
      "let NERDTreeMouseMode=1
@@ -537,10 +569,12 @@
     " }
 
     " ctrlp {
+      let g:ctrlp_cmd = "CtrlP"
       let g:ctrlp_working_path_mode = 'ra'
+      let g:ctrlp_root_marker = [".root"]
       let g:ctrlp_custom_ignore = {
-        \ 'dir':  '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\',
-        \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$' }
+        \ 'dir': '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\|/target/',
+        \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$|\.class$\' }
       let g:ctrlp_extensions = ['tag']
       "let g:ctrlp_user_command = {
       "    \ 'types': {
@@ -551,66 +585,33 @@
       "\ }
     " }
 
-    " unit.vim {
-      "call unite#filters#matcher_default#use(['matcher_fuzzy'])
-      "call unite#filters#sorter_default#use(['sorter_rank'])
-      "call unite#set_profile('files', 'smartcase', 1)
-      "call unite#custom#source('line,outline','matchers,ignore_pattern,max_candidates','matcher_fuzzy,\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\,10')
-
-      "let g:unite_data_directory='~/.vim/.cache/unite'
-      "let g:unite_enable_start_insert=1
-      "let g:unite_source_history_yank_enable=1
-      "let g:unite_source_rec_max_cache_files=5000
-      "let g:unite_prompt='» '
-      "let g:unite_force_overwrite_statusline = 0
-
-      "if executable('ag')
-        "let g:unite_source_grep_command='ag'
-        "let g:unite_source_grep_default_opts='--nocolor --nogroup --hidden'
-        "let g:unite_source_grep_recursive_opt=''
-      "elseif executable('ack')
-        "let g:unite_source_grep_command='ack'
-        "let g:unite_source_grep_default_opts='--no-heading --no-color -a'
-        "let g:unite_source_grep_recursive_opt=''
-      "endif
-
-      "function! s:unite_settings()
-        "nmap <buffer> Q <plug>(unite_exit)
-        "nmap <buffer> <esc> <plug>(unite_exit)
-        "imap <buffer> <esc> <plug>(unite_exit)
-      "endfunction
-      "autocmd FileType unite call s:unite_settings()
-
-      "nmap <space> [unite]
-      "nnoremap [unite] <nop>
-
-      "nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async buffer file_mru bookmark<cr><c-u>
-      "nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async<cr><c-u>
-
-      "nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-      "nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-      "nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer<cr>
-      "nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
-      "nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-      "nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
-
-    "}
-
-    " unite-outline {
-      "nnoremap <silent> [unite]o :<C-u>Unite -auto-resize -buffer-name=outline outline<cr>
-    "}
     " airline {
-      "change the theme (available options: dark, light, simple, badwolf)
       let g:airline_theme='badwolf'
 
       let g:airline_powerline_fonts=1
       let g:airline_left_sep = ''
       let g:airline_right_sep = ''
-      let g:airline_fugitive_prefix = ' '
+      let g:airline_branch_prefix = ' '
       let g:airline_readonly_symbol = ''
       let g:airline_linecolumn_prefix = ' '
     " }
 
+    " taglist.vim {
+
+      " Taglist Scala support
+      let tlist_scala_settings = 'scala;' .
+                              \ 'p:packages;' .
+                              \ 'a:abstract classes;' .
+                              \ 'c:classes;' .
+                              \ 'm:case classes;' .
+                              \ 'o:objects;' .
+                              \ 'M:case objects;' .
+                              \ 't:traits;' .
+                              \ 'T:types;' .
+                              \ 'f:functions;' .
+                              \ 'V:values;' .
+                              \ 'v:variables'
+    " }
 
     " coffeetags {
       if executable('coffeetags')
@@ -694,10 +695,11 @@
       set guifont=Andale\ Mono\ Regular:h16,Menlo\ Regular:h15,Consolas\ Regular:h16,Courier\ New\ Regular:h18
     endif
     if has('gui_macvim')
-      set transparency=5
+      set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
+      set transparency=0
     endif
   else
-    "set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 12
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
     set clipboard=unnamed
     if &term == 'xterm' || &term == 'screen'
       set t_Co=256
@@ -742,7 +744,7 @@
 
   " function: Strip whitespace {
     function! StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
+      " Preparation: save last search, and cursor position.
       let _s=@/
       let l = line(".")
       let c = col(".")

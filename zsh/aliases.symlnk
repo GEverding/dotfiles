@@ -20,6 +20,8 @@ alias wget='wget --content-disposition'
 
 alias servethis="python -c 'import SimpleHTTPServer; SimpleHTTPServer.test()'"
 
+alias search="l | grep -i "
+
 mans ()
 {
   man $1 | grep -iC2 --color=always $2 | less
