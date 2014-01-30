@@ -58,10 +58,11 @@ set-option -g status on
 set-option -g status-interval 2
 set-option -g status-utf8 on
 set-option -g status-justify "centre"
-set-option -g status-left-length 80
-set-option -g status-right-length 200
-set-option -g status-right "#(~/.tmux-powerline/powerline.sh right)"
-set-option -g status-left "#(~/.tmux-powerline/powerline.sh left)"
+ set-option -g status-left-length 80
+ set-option -g status-right-length 200
+ set-option -g status-right "#(~/.tmux-powerline/powerline.sh right)"
+ set-option -g status-left "#(~/.tmux-powerline/powerline.sh left)"
+#source "/home/geverding/.local/lib/python3.2/site-packages/powerline/bindings/tmux/powerline.conf"
 
 
 # Notifying if other windows has activities

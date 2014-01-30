@@ -42,16 +42,22 @@ source $HOME/.aliases
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
 
-BINS=$HOME/local/bin:$HOME/bin:$HOME/.local/bin
+BINS="$HOME/local/bin:$HOME/bin:$HOME/.local/bin"
 
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 export PLATFORM="linux"
-export CABAL_BIN="$HOME/.cabal/bin:"
+export CABAL_BIN="$HOME/.cabal/bin"
 export CHROME_BIN="/opt/google/chrome/chrome"
 export GOROOT="$HOME/dev/software/go"
-export GRADLE_HOME="/home/geverding/dev/software/gradle-1.5"
+export GRADLE_HOME="$HOME/dev/software/gradle-1.6"
+export ANDROID_HOME="$HOME/dev/software/andriod-sdk/sdk"
+export ANDROID_TOOLS="$ANDROID_HOME/tools"
+export ANDROID_PLATFORM="$ANDROID_HOME/platform-tools"
+export SCALA_HOME="$HOME/dev/software/scala-2.10.2"
 export HEROKU="/usr/local/heroku"
+export PLAY="$HOME/dev/software/play-2.2.1"
 #export CHEF_BIN="/opt/chef/embedded/bin"
+export GPGKEY=06123442
 
-export PATH="$BINS:$HEROKU/bin:$GRADLE_HOME/bin:$GOROOT/bin:$CABAL_BIN:$PATH"
+export PATH="$BINS:$HEROKU/bin:$GRADLE_HOME/bin:$GOROOT/bin:$CABAL_BIN:$SCALA_HOME/bin:$PLAY:$ANDROID_PLATFORM:$ANDROID_TOOLS:$PATH"
