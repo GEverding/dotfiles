@@ -557,10 +557,11 @@
     " }
 
     " ctrlp {
-      let g:ctrlp_working_path_mode = 'ra'
+      let g:ctrlp_working_path_mode = 'r'
       let g:ctrlp_custom_ignore = {
         \ 'dir': '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\|/target/',
         \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$|\.class$\' }
+
       let g:ctrlp_extensions = ['tag']
       "let g:ctrlp_user_command = {
       "    \ 'types': {
