@@ -193,7 +193,7 @@
   set virtualedit=onemore
   set foldenable
   set colorcolumn=81
-  set tags=tags;/
+  set tags=tags,$HOME/software/scala-2.10.3/akka_tags,$HOME/software/scala-2.10.3/scala_tags;
   set laststatus=2 " Always display the statusline in all windows
   set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
   "set showmode
