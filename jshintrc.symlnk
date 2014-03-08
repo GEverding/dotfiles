@@ -39,7 +39,7 @@
     "_",
     "emit"
   ],
-  "quotmark": "single",
+  "quotmark": false,
   "smarttabs": true,
   "strict": false,
   "trailing": false,

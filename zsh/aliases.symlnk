@@ -122,5 +122,8 @@ alias wotgobblemem='ps -o time,ppid,pid,nice,pcpu,pmem,user,comm -A | sort -n -k
 
 function gi() 
 { 
-  curl http://gitignore.io/api/$1 ;
+  echo $1
+  curl http://www.gitignore.io/api/$1 ;
 }
+
+alias hgl="hoogle --color --count=20 "

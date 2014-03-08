@@ -23,6 +23,8 @@
     Bundle 'scrooloose/nerdtree'
 
     Bundle 'tpope/vim-surround'
+    Bundle 'tpope/vim-unimpaired'
+
     "Bundle 'AutoClose'
     Bundle 'kien/ctrlp.vim'
     "Bundle 'matchit.zip'
@@ -36,6 +38,7 @@
     "Bundle 'Lokaltog/powerline'
     "Bundle 'Lokaltog/vim-easymotion'
     Bundle 'bling/vim-airline'
+    Bundle 'jamessan/vim-gnupg'
 
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
@@ -52,6 +55,7 @@
     Bundle 'honza/vim-snippets'
 
     Bundle "majutsushi/tagbar"
+    Bundle "29decibel/vim-stringify"
 
     " Golang {
     "Bundle 'jnwhiteh/vim-golang'
@@ -88,6 +92,7 @@
     Bundle 'derekwyatt/vim-scala'
     Bundle 'derekwyatt/vim-sbt'
     Bundle 'gre/play2vim'
+    Bundle 'GEverding/vim-hocon'
     " }
 
     " PHP {
@@ -143,12 +148,12 @@
 
   if has('gui_running')
     set background=dark
-    colorscheme molokai
-    "colorscheme wombat256-jb55
+    "colorscheme molokai
+    colorscheme wombat256v2
     "colorscheme hybrid
   else
-    colorscheme molokai
     set background=dark
+    colorscheme wombat256v2
   endif
 
 " }
@@ -239,6 +244,7 @@
 " Autocommands {
 
   au BufEnter,BufNew,BufRead,BufReadPre *.do set ft=sh
+  au BufNew,BufRead,BufEnter,BufReadPre *.js set filetype=javascript
   au BufEnter,BufNew,BufRead,BufReadPre *.coffee set filetype=coffee
   au BufEnter,BufNew,BufRead,BufReadPre *.jade set filetype=jade
   "au BufEnter,BufNew,BufRead *.json set ft=json
@@ -246,15 +252,15 @@
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
   au BufEnter,BufNew,BufRead *.scala set ft=scala
   au BufEnter,BufNew,BufRead *.rs set ft=rust
-  au BufNew,BufRead,BufEnter,BufReadPre *.js set filetype=javascript
   au BufEnter,BufNew,BufRead,BufReadPre *.go set filetype=go
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
   au BufEnter,BufNew,BufRead,BufReadPre *.md set filetype=markdown
   " play framework
   au BufRead,BufNewFile *.scala.html set filetype=html syntax=play2-html
   au BufRead,BufNewFile */conf/\(*\|\)routes set filetype=play2-routes
-  au BufRead,BufNewFile */conf/*.conf setf play2-conf
+  "au BufRead,BufNewFile */conf/*.conf setf play2-conf
   au BufRead,BufNewFile plugins.sbt set filetype=scala
+  au BufRead,BufNewFile */conf/*.conf set ft=hocon
 
   "au BufNewFile,BufRead,BufEnter *.py set tabstop=4 softtabstop=4 shiftwidth=4
 
@@ -279,10 +285,10 @@
   let mapleader= ','
 
   " Better Movement
-  map <C-J> <C-W>j<C-W>_
-  map <C-K> <C-W>k<C-W>_
-  map <C-L> <C-W>l<C-W>_
-  map <C-H> <C-W>h<C-W>_
+  map <C-J> <C-W>j<C-W>
+  map <C-K> <C-W>k<C-W>
+  map <C-L> <C-W>l<C-W>
+  map <C-H> <C-W>h<C-W>
 
   " Tab Switching
   map <A-1> 1gt
@@ -327,11 +333,18 @@
   cmap Agh Ag -G hs$ ""<Left>
   cmap Agj Ag -G jade$ ""<Left>
   cmap Agl Ag -G less$ ""<Left>
+  cmap Ags Ag -G scala$ ""<Left>
+  nmap ,sf :AgForFiletype 
 
+  nmap <silent> ,cr :lcd <c-r>=FindGitDirOrRoot()<cr><cr>
+
+  " Stringify() {
+    map <leader>g :call Stringify()<CR>
+  " }
 " }
 
 " Color Configurations {
-  syn match  myTodo contained   "\<\(TODO\|FIXME\|HACK\|NOTE\):"
+  syn match myTodo contained   "\<\(TODO\|FIXME\|HACK\|NOTE\|WTF\):"
   hi def link myTodo Todo
 " }
 
@@ -549,16 +562,22 @@
 
    " }
 
-   " Syntasic Config {
+   " Syntasic {
       let g:syntastic_error_symbol='✗>'
       let g:syntastic_style_error_symbol='✗>'
       let g:syntastic_warning_symbol='⚠>'
       let g:syntastic_style_warning_symbol='⚠>'
 
+      let g:syntastic_check_on_open = 0
       let g:syntastic_javascript_checkers = ['jshint']
       let g:syntastic_jshint_exec="/Users/geverding/.local/bin/jshint"
-      let g:syntastic_scala_checkers = ['scalac']
+      let g:syntastic_scala_checkers = ['']
+      let g:syntastic_html_checkers = ['']
+      let g:syntastic_haskell_checkers = ['ghc_mod', 'hlint']
       "let g:syntastic_scalac_exec="/Users/geverding/software/scala-2.10.3/bin/scalac"
+      let g:syntastic_c_check_header = 1
+      let g:syntastic_c_compiler = 'clang'
+      let g:syntastic_fsc_exec = '/Users/geverding/software/scala-2.10.3/bin/fsc'
 
    " }
 
@@ -576,9 +595,12 @@
       let g:ctrlp_working_path_mode = 'r'
       let g:ctrlp_root_marker = [".root"]
       let g:ctrlp_extensions = ['tag']
-      let g:ctrlp_custom_ignore = {
-        \ 'dir': '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\|/target/',
-        \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$|\.class$\' }
+
+      let g:ctrlp_custom_ignore = '\v%(/\.%(git|hg|svn)|\.%(class|o|png|jpg|jpeg|bmp|tar|jar|tgz|deb|zip)$|/target/%(quickfix|resolution-cache|streams|test-reports)|/target/scala-2.10/%(classes|test-classes|sbt-0.13|cache|test-reports)|/project/target|/project/project)'
+      "let g:ctrlp_custom_ignore = {
+        "\ 'dir': '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\',
+        "\ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$|\.class$\' }
+
 
       "let g:ctrlp_user_command = {
       "    \ 'types': {
@@ -672,8 +694,19 @@
     " }
 
     " syntastic {
-    let g:syntastic_c_check_header = 1
-    let g:syntastic_c_compiler = 'clang'
+
+    " }
+
+    " javascript {
+    let g:javascript_conceal = 0
+    "}
+
+    " NERDCommenter {
+      let g:NERDCustomDelimiters = {
+          \ 'c': { 'left': '/**','right': '*/', 'leftAlt': '//' },
+          \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
+          \ 'javascript.jquery': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
+      \ }
     " }
 
 " }
@@ -772,7 +805,15 @@
     :redraw!
   endfunction
 
-
+  function! FindGitDirOrRoot()
+    let curdir = expand('%:p:h')
+    let gitdir = finddir('.git', curdir . ';')
+    if gitdir != ''
+      return substitute(gitdir, '\/\.git$', '', '')
+    else
+      return '/'
+    endif
+  endfunction
 " }
 
 " Setup Local gvimrc {

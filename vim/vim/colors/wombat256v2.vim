@@ -15,7 +15,7 @@ if version > 580
 	endif
 endif
 
-let g:colors_name = "wombat256"
+let g:colors_name = "wombat256v2"
 
 if !has("gui_running") && &t_Co != 88 && &t_Co != 256
 	finish
@@ -285,6 +285,11 @@ call <SID>X("Todo",			"857b6f",	"",			"italic")
 
 call <SID>X("IndentGuidesOdd",		"", "353535", "none")
 call <SID>X("IndentGuidesEven",		"", "2d2d2d",	"none")
+
+call <SID>X("SignColumn"       ,  "cccccc" ,  "242424" ,  "none")
+call <SID>X("SyntasticError"   ,  "f6f3e8" ,  "444444" ,  "")
+call <SID>X("SyntasticWarning" ,  "000000" ,  "F2EF8A" ,  "")
+call <SID>X("Error"            ,  "f6f3e8" ,  "444444" ,  "")
 
 hi! link VisualNOS	Visual
 hi! link NonText	LineNr
