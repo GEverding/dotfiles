@@ -20,6 +20,7 @@
       Bundle 'epmatsw/ag.vim'
     endif
 
+    Bundle 'GEverding/wombat256.vim'
     Bundle 'scrooloose/nerdtree'
 
     Bundle 'tpope/vim-surround'
@@ -144,19 +145,6 @@
 
 " }
 
-" Colorscheme {
-
-  if has('gui_running')
-    set background=dark
-    "colorscheme molokai
-    colorscheme wombat256v2
-    "colorscheme hybrid
-  else
-    set background=dark
-    colorscheme wombat256v2
-  endif
-
-" }
 
 " Configuration Options {
 
@@ -820,5 +808,10 @@
   if filereadable(expand(".gvimrc.local"))
     source .gvimrc.local
   endif
+" }
+
+" Colorscheme {
+  set background=dark
+  colorscheme wombat256
 " }
 
