@@ -22,6 +22,7 @@
     endif
 
     Bundle 'GEverding/wombat256.vim'
+    Bundle 'Valloric/YouCompleteMe'
     Bundle 'scrooloose/nerdtree'
 
     Bundle 'tpope/vim-surround'
@@ -30,29 +31,29 @@
     Bundle 'kien/ctrlp.vim'
     Bundle "taglist.vim"
     "Bundle 'godlygeek/csapprox'
-    "Bundle 'kshenoy/vim-signature.git'
     Bundle 'mbbill/undotree'
     Bundle 'myusuf3/numbers.vim'
     Bundle 'nathanaelkane/vim-indent-guides'
 
-    "Bundle 'Lokaltog/powerline'
-    "Bundle 'Lokaltog/vim-easymotion'
     Bundle 'bling/vim-airline'
     Bundle 'jamessan/vim-gnupg'
 
+    Bundle 'honza/vim-snippets'
+    Bundle 'SirVer/ultisnips'
+
+    Bundle 'tomtom/tcomment_vim'
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
     Bundle 'airblade/vim-gitgutter'
-    "Bundle 'scrooloose/nerdcommenter'
-    Bundle 'tomtom/tcomment_vim'
     Bundle 'godlygeek/tabular'
-
 
     Bundle 'marijnh/tern_for_vim'
     Bundle 'Raimondi/delimitMate'
 
+
     Bundle "majutsushi/tagbar"
     Bundle "29decibel/vim-stringify"
+
 
     " Golang {
     "Bundle 'jnwhiteh/vim-golang'
@@ -134,6 +135,8 @@
     " Misc {
     Bundle 'tpope/vim-markdown'
     "Bundle 'spf13/vim-preview'
+    Bundle 'reedes/vim-wordy'
+    Bundle 'reedes/vim-lexical'
     " }
 
   " }
@@ -265,6 +268,15 @@
   au BufWinLeave *.* silent!  mkview
   au BufWinEnter *.* silent! loadview
 
+  augroup lexical
+    autocmd!
+    autocmd FileType markdown call WordProcessorMode()
+    autocmd FileType markdown call lexical#init()
+    autocmd FileType textile call lexical#init()
+    autocmd FileType text call WordProcessorMode()
+    autocmd FileType text call lexical#init({ 'spell': 0 })
+  augroup END
+
 " }
 
 " Re-Mappings {
@@ -333,6 +345,14 @@
   " Stringify() {
     map <leader>g :call Stringify()<CR>
   " }
+
+  " delimitMate {
+    imap <C-f> <CR><Esc>O
+  " }
+
+  " Writing Mode {
+    com! WP call WordProcessorMode()
+  " }
 " }
 
 " Color Configurations {
@@ -343,47 +363,43 @@
 " Plugins {
 
   " OmniComplete {
-    if has("autocmd") && exists("+omnifunc")
-     autocmd Filetype *
-       \if &omnifunc == "" |
-       \setlocal omnifunc=syntaxcomplete#Complete |
-       \endif
-    endif
+    " if has("autocmd") && exists("+omnifunc")
+    "  autocmd Filetype *
+    "    \if &omnifunc == "" |
+    "    \setlocal omnifunc=syntaxcomplete#Complete |
+    "    \endif
+    " endif
 
     hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
     hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
     hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
     """ some convenient mappings
-    inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-    inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-    inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-    inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-    inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-    inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+    " inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+    " inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+    " inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+    " inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+    " inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+    " inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
     """ automatically open and close the popup menu / preview window
-    au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-    set completeopt=menu,preview,longest
+    " au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+    " set completeopt=menu,preview,longest
 
     " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
   " }
 
   " UltiSinps {
-    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsExpandTrigger="<c-k>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-  " }
-
-  " YouCompleteMe {
-    let g:ycm_collect_identifiers_from_tags_files = 1
   " }
 
   " Indent Guides {
@@ -600,6 +616,9 @@
       nmap <silent> <leader>cp<space> m`vip:TComment<cr>``
       vmap <silent> <leader>cp<space> m`vip:TComment<cr>``
     " }
+    " lexical {
+      let g:lexical#spelllang = ['en_ca']
+    " }
 
 " }
 
@@ -706,6 +725,17 @@
       return '/'
     endif
   endfunction
+
+  func! WordProcessorMode()
+    setlocal formatoptions=1
+    setlocal noexpandtab
+    setlocal spell spelllang=en_us
+    set thesaurus+=~/.vim/thesaurus/mthesaur.txt
+    set complete+=s
+    set formatprg=par
+    setlocal wrap
+    setlocal linebreak
+  endfu
 " }
 
 " Setup Local gvimrc {
