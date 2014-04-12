@@ -1,8 +1,8 @@
 " vim: set foldmarker={,} foldlevel=0 foldmethod=marker:
 " Author: Garrett Everding <garrett.everding92@gmail.com>
 
-" Basics {
-  set nocp
+  " Basics {
+    set nocp
 
   filetype off
 " }
@@ -17,46 +17,43 @@
     "Bundle 'vimwiki'
 
     if executable('ag')
-      Bundle 'epmatsw/ag.vim'
+      "Bundle 'epmatsw/ag.vim'
+      Bundle 'derekwyatt/ag.vim'
     endif
 
     Bundle 'GEverding/wombat256.vim'
+    Bundle 'Valloric/YouCompleteMe'
     Bundle 'scrooloose/nerdtree'
 
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-unimpaired'
 
-    "Bundle 'AutoClose'
     Bundle 'kien/ctrlp.vim'
-    "Bundle 'matchit.zip'
     Bundle "taglist.vim"
-    Bundle 'godlygeek/csapprox'
-    "Bundle 'kshenoy/vim-signature.git'
+    "Bundle 'godlygeek/csapprox'
     Bundle 'mbbill/undotree'
     Bundle 'myusuf3/numbers.vim'
     Bundle 'nathanaelkane/vim-indent-guides'
 
-    "Bundle 'Lokaltog/powerline'
-    "Bundle 'Lokaltog/vim-easymotion'
     Bundle 'bling/vim-airline'
     Bundle 'jamessan/vim-gnupg'
 
+    Bundle 'honza/vim-snippets'
+    Bundle 'SirVer/ultisnips'
+
+    Bundle 'tomtom/tcomment_vim'
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
     Bundle 'airblade/vim-gitgutter'
-    Bundle 'scrooloose/nerdcommenter'
     Bundle 'godlygeek/tabular'
 
-    Bundle 'Shougo/vimproc.vim'
+    Bundle 'marijnh/tern_for_vim'
+    Bundle 'Raimondi/delimitMate'
 
-    "Bundle 'Shougo/neocomplcache.vim'
-    Bundle 'Shougo/neocomplete.vim'
-    Bundle 'Shougo/neosnippet.vim'
-    Bundle 'Shougo/neosnippet-snippets.git'
-    Bundle 'honza/vim-snippets'
 
     Bundle "majutsushi/tagbar"
     Bundle "29decibel/vim-stringify"
+
 
     " Golang {
     "Bundle 'jnwhiteh/vim-golang'
@@ -83,6 +80,8 @@
 
     " Javascript {
     Bundle 'pangloss/vim-javascript'
+    Bundle 'jelera/vim-javascript-syntax'
+    Bundle 'JavaScript-Indent'
     " }
 
     " Rust {
@@ -136,6 +135,8 @@
     " Misc {
     Bundle 'tpope/vim-markdown'
     "Bundle 'spf13/vim-preview'
+    Bundle 'reedes/vim-wordy'
+    Bundle 'reedes/vim-lexical'
     " }
 
   " }
@@ -225,6 +226,8 @@
     set undoreload=10000        " number of lines to save for undo
   endif
   set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+  set autoread
+  set wildmenu
 
 " }
 
@@ -264,6 +267,15 @@
   " Open to last position
   au BufWinLeave *.* silent!  mkview
   au BufWinEnter *.* silent! loadview
+
+  augroup lexical
+    autocmd!
+    autocmd FileType markdown call WordProcessorMode()
+    autocmd FileType markdown call lexical#init()
+    autocmd FileType textile call lexical#init()
+    autocmd FileType text call WordProcessorMode()
+    autocmd FileType text call lexical#init({ 'spell': 0 })
+  augroup END
 
 " }
 
@@ -316,21 +328,35 @@
   map <F6> :call RCmd("make tests")<CR>
   "map <F6> :call RCmd("npm test")<CR>
 
-  cmap Agc Ag -G coffee$ ""<Left>
-  cmap Agh Ag -G hs$ ""<Left>
-  cmap Agj Ag -G jade$ ""<Left>
-  cmap Agl Ag -G less$ ""<Left>
-  cmap Ags Ag -G scala$ ""<Left>
-  nmap ,sf :AgForFiletype 
+  " ag.vim {
+    nmap ,sf :AgForCurrentFileDir
+    nmap ,sr :AgForProjectRoot
+    nmap ,se :AgForExtension
+    let g:ag_results_mapping_replacements = {
+    \   'open_and_close': '<cr>',
+    \   'open': 'o',
+    \ }
+    vmap <Leader>s "vy:Ag <C-r>v<CR>
+    nmap <Leader>s "vyiw:Ag <C-r>v<CR>
+  " }
 
   nmap <silent> ,cr :lcd <c-r>=FindGitDirOrRoot()<cr><cr>
 
   " Stringify() {
     map <leader>g :call Stringify()<CR>
   " }
+  
   " hdevtools {
     au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
     au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
+  " }
+
+  " delimitMate {
+    imap <C-f> <CR><Esc>O
+  " }
+
+  " Writing Mode {
+    com! WP call WordProcessorMode()
   " }
 " }
 
@@ -342,148 +368,43 @@
 " Plugins {
 
   " OmniComplete {
-    "if has("autocmd") && exists("+omnifunc")
-     "autocmd Filetype *
-       "\if &omnifunc == "" |
-       "\setlocal omnifunc=syntaxcomplete#Complete |
-       "\endif
-    "endif
+    " if has("autocmd") && exists("+omnifunc")
+    "  autocmd Filetype *
+    "    \if &omnifunc == "" |
+    "    \setlocal omnifunc=syntaxcomplete#Complete |
+    "    \endif
+    " endif
 
     hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
     hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
     hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
 
     """ some convenient mappings
-    "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-    "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-    "inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-    "inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-    "inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-    "inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+    " inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+    " inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+    " inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+    " inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+    " inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+    " inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
 
     """ automatically open and close the popup menu / preview window
-    "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-    "set completeopt=menu,preview,longest
-
-  " }
-
-  " NeoComplCache {
-
-    "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
-    " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 1
-    " Use smartcase.
-    let g:neocomplete#enable_smart_case = 1
-    " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
-    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-    let g:neocomplete#force_overwrite_completefunc = 1
-
-    " Define dictionary.
-    let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-            \ }
-
-    " Define keyword.
-    if !exists('g:neocomplete#keyword_patterns')
-        let g:neocomplete#keyword_patterns = {}
-    endif
-    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return neocomplete#close_popup() . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()
-    " Close popup by <Space>.
-
-    "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-    " For cursor moving in insert mode(Not recommended)
-    "inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-    "inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-    "inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-    "inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-    " Or set this.
-    "let g:neocomplete#enable_cursor_hold_i = 1
-    " Or set this.
-    "let g:neocomplete#enable_insert_char_pre = 1
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+    " au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+    " set completeopt=menu,preview,longest
 
     " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+    " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    " autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
   " }
 
-  " Neosnippet {
-
-    " Plugin key-mappings.
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<TAB>"
-
-    " For snippet_complete marker.
-    if has('conceal')
-      set conceallevel=2 concealcursor=i
-    endif
-
-    " Enable snipMate compatibility feature.
-    let g:neosnippet#enable_snipmate_compatibility = 1
-
-    " Tell Neosnippet about the other snippets
-    let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets/'
-
+  " UltiSinps {
+    let g:UltiSnipsExpandTrigger="<c-k>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
   " }
 
   " Indent Guides {
@@ -692,12 +613,16 @@
     let g:javascript_conceal = 0
     "}
 
-    " NERDCommenter {
-      let g:NERDCustomDelimiters = {
-          \ 'c': { 'left': '/**','right': '*/', 'leftAlt': '//' },
-          \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
-          \ 'javascript.jquery': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
-      \ }
+    " tComment {
+      nmap <silent> <leader>c<space> :TComment<cr>
+      vmap <silent> <leader>c<space> :TComment<cr>
+      nmap <silent> <leader>cs<space> :TCommentBlock<cr>
+      vmap <silent> <leader>cs<space> :TCommentBlock<cr>
+      nmap <silent> <leader>cp<space> m`vip:TComment<cr>``
+      vmap <silent> <leader>cp<space> m`vip:TComment<cr>``
+    " }
+    " lexical {
+      let g:lexical#spelllang = ['en_ca']
     " }
 
 " }
@@ -805,6 +730,17 @@
       return '/'
     endif
   endfunction
+
+  func! WordProcessorMode()
+    setlocal formatoptions=1
+    setlocal noexpandtab
+    setlocal spell spelllang=en_us
+    set thesaurus+=~/.vim/thesaurus/mthesaur.txt
+    set complete+=s
+    set formatprg=par
+    setlocal wrap
+    setlocal linebreak
+  endfu
 " }
 
 " Setup Local gvimrc {
