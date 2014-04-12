@@ -117,10 +117,10 @@
     " }
 
     " Haskell {
-    "Bundle 'lukerandall/haskellmode-vim'
-    Bundle "eagletmt/ghcmod-vim"
+    "Bundle "eagletmt/ghcmod-vim"
     Bundle "eagletmt/neco-ghc"
     Bundle "dag/vim2hs"
+    Bundle "bitc/vim-hdevtools"
     " }
 
     " SQL {
@@ -144,7 +144,6 @@
   syntax enable
 
 " }
-
 
 " Configuration Options {
 
@@ -279,10 +278,10 @@
   map <C-H> <C-W>h<C-W>
 
   " Tab Switching
-  map <A-1> 1gt
-  map <A-2> 2gt
-  map <A-3> 3gt
-  map <A-4> 4gt
+  noremap <C-1> 1gt
+  noremap <C-2> 2gt
+  noremap <C-3> 3gt
+  noremap <C-4> 4gt
 
   " Clear Search
   nmap <silent> <leader>/ :nohlsearch<CR>
@@ -328,6 +327,10 @@
 
   " Stringify() {
     map <leader>g :call Stringify()<CR>
+  " }
+  " hdevtools {
+    au FileType haskell nnoremap <buffer> <F1> :HdevtoolsType<CR>
+    au FileType haskell nnoremap <buffer> <silent> <F2> :HdevtoolsClear<CR>
   " }
 " }
 
@@ -724,7 +727,7 @@
       set transparency=0
     endif
   else
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h13
     set clipboard=unnamed
     if &term == 'xterm' || &term == 'screen'
       set t_Co=256
