@@ -95,6 +95,13 @@
     Bundle 'GEverding/vim-hocon'
     " }
 
+    " Clojure {
+      Bundle 'guns/vim-clojure-static'
+      Bundle 'guns/vim-clojure-highlight'
+      Bundle 'tpope/vim-fireplace'
+      Bundle 'kien/rainbow_parentheses.vim'
+    " }
+
     " PHP {
     "Bundle 'spf13/PIV.git'
     " }
@@ -120,11 +127,6 @@
     Bundle "eagletmt/neco-ghc"
     Bundle "dag/vim2hs"
     Bundle "bitc/vim-hdevtools"
-    " }
-
-    " SQL {
-    "Bundle 'SQLComplete.vim'
-    "Bundle 'SQLUtilities'
     " }
 
     " SQL {
@@ -276,6 +278,11 @@
     autocmd FileType text call WordProcessorMode()
     autocmd FileType text call lexical#init({ 'spell': 0 })
   augroup END
+
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
 
 " }
 
