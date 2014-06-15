@@ -33,7 +33,7 @@ ZSH_THEME="GEverding"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow cabal npm)
+plugins=(git git-extras cabal npm lein vagrant tmux)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
@@ -41,10 +41,9 @@ source $HOME/.aliases
 # tmux stuff
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 
-
 BINS="$HOME/local/bin:$HOME/bin:$HOME/.local/bin"
 
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 export PLATFORM="linux"
 export CABAL_BIN="$HOME/.cabal/bin"
