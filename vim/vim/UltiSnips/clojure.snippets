@@ -1,0 +1,19 @@
+snippet reqstr "Require clojure.string" b
+(:require [clojure.string :as str])
+endsnippet
+
+snippet req "require" b
+(:require [${1:clojure}.$2 :as $3])
+endsnippet
+
+snippet rref "require" b
+(:require [${1:clojure}.$2 :refer $3])
+endsnippet
+
+snippet rblk "require block" b
+(:require $1)
+endsnippet
+
+snippet rblock "require inner block"
+[${1:clojure}.$2 :${3:as} $4]
+endsnippet
