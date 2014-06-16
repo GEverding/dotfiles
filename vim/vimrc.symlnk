@@ -212,7 +212,7 @@
   " minimum lines to keep above and below cursor
   set scrolloff=5
 
-  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class
+  set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.o,*.cnode,*.hnode
 
   set nu
 
