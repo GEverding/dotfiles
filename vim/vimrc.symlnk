@@ -576,7 +576,7 @@
       let g:ctrlp_root_marker = [".root"]
       let g:ctrlp_extensions = ['tag']
 
-      let g:ctrlp_custom_ignore = '\v%(/\.%(git|hg|svn)|\.%(class|o|png|jpg|jpeg|bmp|tar|jar|tgz|deb|zip|pyc)$|/target|/target/%(quickfix|resolution-cache|streams|test-reports)|/target/scala-2.10/%(classes|test-classes|sbt-0.13|cache|test-reports)|/project/target|/project/project|/resources/public/css|/resources/public/js/out|/node_modules|/.env/%(lib|local|include))'
+      let g:ctrlp_custom_ignore = '\v%(/\.%(git|hg|svn)|\.%(class|o|png|jpg|jpeg|bmp|tar|jar|tgz|deb|zip|pyc)$|/target|/target/%(quickfix|resolution-cache|streams|test-reports)|/target/scala-2.10/%(classes|test-classes|sbt-0.13|cache|test-reports)|/project/target|/project/project|/resources/public/css|/resources/public/%(js/out|css/lib|font)|/resources/web|/node_modules|/.env/%(lib|local|include))'
       "let g:ctrlp_custom_ignore = {
         "\ 'dir': '\node_modules$\|\.DS_Store$\|\.git$\|\.hg$\|\.svn$\|\.redo$\',
         "\ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$|\.dir$|\.class$\' }
