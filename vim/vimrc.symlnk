@@ -34,7 +34,8 @@
     Bundle 'honza/vim-snippets'
     Bundle 'tomtom/tcomment_vim'
     Bundle 'scrooloose/syntastic'
-    " Bundle 'tpope/vim-fugitive'
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'Lokaltog/vim-easymotion'
     Bundle 'airblade/vim-gitgutter'
     Bundle 'godlygeek/tabular'
     Bundle 'Raimondi/delimitMate'
@@ -64,7 +65,8 @@
     " }
 
     " CSS {
-      Bundle 'hail2u/vim-css3-syntax'
+      " Bundle 'hail2u/vim-css3-syntax'
+      Bundle 'JulesWang/css.vim'
       Bundle 'cakebaker/scss-syntax.vim'
     " }
 
@@ -104,7 +106,8 @@
     " }
 
     " C/C++ {
-    Bundle 'a.vim'
+      Bundle 'a.vim'
+      Bundle 'brookhong/cscope.vim'
     " }
 
     "Ruby {
@@ -232,18 +235,19 @@
 
 " Autocommands {
 
-  au BufEnter,BufRead *.do set ft=sh
-  au BufEnter,BufRead *.js set filetype=javascript
-  au BufEnter,BufRead *.coffee set filetype=coffee
-  au BufEnter,BufRead *.jade set filetype=jade
-  "au BufEnter,BufRead *.json set ft=json
-  au BufEnter,BufRead *.less set filetype=less
-  au BufEnter,BufRead *.md set filetype=markdown
-  au BufEnter,BufRead *.scala set ft=scala
-  au BufEnter,BufRead *.rs set ft=rust
-  au BufEnter,BufRead *.go set filetype=go
-  au BufEnter,BufRead *.md set filetype=markdown
-  au BufEnter,BufRead *.md set filetype=markdown
+  au BufEnter,BufRead,BufNewFile *.do set ft=sh
+  au BufEnter,BufRead,BufNewFile *.js set filetype=javascript
+  au BufEnter,BufRead,BufNewFile *.coffee set filetype=coffee
+  au BufEnter,BufRead,BufNewFile *.jade set filetype=jade
+  au BufEnter,BufRead,BufNewFile *.json set ft=json
+  au BufEnter,BufRead,BufNewFile *.less set filetype=less
+  au BufEnter,BufRead,BufNewFile *.md set filetype=markdown
+  au BufEnter,BufRead,BufNewFile *.scala set ft=scala
+  au BufEnter,BufRead,BufNewFile *.rs set ft=rust
+  au BufEnter,BufRead,BufNewFile *.go set filetype=go
+  au BufEnter,BufRead,BufNewFile *.md set filetype=markdown
+  au BufEnter,BufRead,BufNewFile *.md set filetype=markdown
+  au BufRead,BufNewFile *.scss set filetype=scss.css
 
 
   " format go code
@@ -456,11 +460,11 @@
       " "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
       "
       " " Enable omni completion.
-      " " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-      " " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-      " " autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-      " " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-      " " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+      autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+      autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+      autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+      autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+      autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
       "
       " " Enable heavy omni completion.
       " if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -572,8 +576,8 @@
 
     " ctrlp {
       let g:ctrlp_cmd = "CtrlP"
-      let g:ctrlp_working_path_mode = 'r'
-      let g:ctrlp_root_marker = [".root"]
+      let g:ctrlp_working_path_mode = 'ra'
+      let g:ctrlp_root_markers = ['.root']
       let g:ctrlp_extensions = ['tag']
 
       let g:ctrlp_custom_ignore = '\v%(/\.%(git|hg|svn)|\.%(class|o|png|jpg|jpeg|bmp|tar|jar|tgz|deb|zip|pyc)$|/target|/target/%(quickfix|resolution-cache|streams|test-reports)|/target/scala-2.10/%(classes|test-classes|sbt-0.13|cache|test-reports)|/project/target|/project/project|/resources/public/css|/resources/public/%(js/out|css/lib|font)|/resources/web|/node_modules|/.env/%(lib|local|include))'
@@ -692,6 +696,34 @@
 
     " lexical {
       let g:lexical#spelllang = ['en_ca']
+    " }
+   
+    " clojure {
+      "Align subsequent lines in multiline strings to the column after the opening quote, instead of the same column.
+      let g:clojure_align_multiline_strings = 1
+    " }
+    
+    " easymotion {
+      let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+      " Bi-directional find motion
+      " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+      " `s{char}{label}`
+      nmap s <Plug>(easymotion-s)
+      " or
+      " `s{char}{char}{label}`
+      " Need one more keystroke, but on average, it may be more comfortable.
+      nmap s <Plug>(easymotion-s2)
+
+      " Turn on case sensitive feature
+      let g:EasyMotion_smartcase = 1
+
+      " JK motions: Line motions
+      map <Leader>j <Plug>(easymotion-j)
+      map <Leader>k <Plug>(easymotion-k)
+
+      map  / <Plug>(easymotion-sn)
+      omap / <Plug>(easymotion-tn)
     " }
 
 " }
