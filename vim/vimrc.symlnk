@@ -21,7 +21,7 @@
     Bundle 'Valloric/YouCompleteMe'
     Bundle 'scrooloose/nerdtree'
     Bundle 'tpope/vim-surround'
-    " Bundle 'tpope/vim-unimpaired'
+    Bundle 'tpope/vim-unimpaired'
     Bundle 'kien/ctrlp.vim'
     Bundle "taglist.vim"
     "Bundle 'godlygeek/csapprox'
@@ -41,7 +41,6 @@
     Bundle 'Raimondi/delimitMate'
     " Bundle "majutsushi/tagbar"
     Bundle "29decibel/vim-stringify"
-    Bundle 'sjl/splice.vim'
     Bundle 'tpope/vim-repeat'
 
     " Golang {
