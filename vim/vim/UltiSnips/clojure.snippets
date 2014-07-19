@@ -17,3 +17,23 @@ endsnippet
 snippet rblock "require inner block"
 [${1:clojure}.$2 :${3:as} $4]
 endsnippet
+
+snippet entity "Basic Datomic Entity" b
+{:db/doc "$1"
+ :db/ident $2
+ :db/valueType :db.type/${3:string}
+ :db/cardinality :db.cardinality/${4:one}
+ :db.install/_attribute :db.part/db
+ :db/id #db/id [:db.part/db] }
+endsnippet
+
+snippet partition "Create Datomic Parition" b
+[{:db/id #db/id[:db.part/db]
+	:db/ident :$1
+	:db.install/_partition :db.part/db}]
+endsnippet
+snippet enum "Create Datomic Enum" b
+{:db/id #db/id[:$1 -$2]
+ :db/ident :$3.$4/$5}
+endsnippet
+
