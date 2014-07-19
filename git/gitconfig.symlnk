@@ -32,6 +32,7 @@
   lg2 = log --graph --all --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
   lg3 = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
   lg = !"git lg1"
+  staged = diff --cached
 
 [color]
   branch = auto
@@ -54,10 +55,7 @@
   changed = green
   untracked = cyan
 
+[diff]
+	tool = vimdiff
 [merge]
-  tool = splice
-
-[mergetool "splice"]
-  cmd = "gvim -f $BASE $LOCAL $REMOTE $MERGED -c 'SpliceInit'"
-  trustExitCode = true
-
+	tool = vimdiff
