@@ -13,8 +13,9 @@ bind C-X swap-pane
 
 # Use Vi mode
 setw -g mode-keys vi
-setw -g mode-mouse on
-setw -g mouse-resize-pane on
+set-option -g -q mouse on
+bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+bind -n WheelDownPane select-pane -t= \; send-keys -M
 setw -g aggressive-resize on
 
 # Start windows/panes at 1 not 0
@@ -29,7 +30,7 @@ unbind '"'
 bind - split-window -v
 
 # History
-set -g history-limit 1000
+set -g history-limit 50000
 
 # Pane
 unbind o
@@ -43,6 +44,7 @@ bind C-h select-pane -L
 bind h select-pane -L
 bind l select-pane -R
 bind C-l select-pane -R
+bind c new-window -c "#{pane_current_path}"
 
 # Terminal emulator window title
 set -g set-titles on
@@ -52,23 +54,24 @@ setw -g window-status-current-format '#I:#W#F'
 setw -g automatic-rename off
 
 # Status Bar
-#set -g status-bg colour233
-#set -g status-fg colour239
-#set-option -g status on
-#set-option -g status-interval 2
-#set-option -g status-utf8 on
-#set-option -g status-justify "centre"
-#set-option -g status-left-length 80
-#set-option -g status-right-length 200
-#set-option -g status-right "#(~/.tmux-powerline/powerline.sh right)"
-#set-option -g status-left "#(~/.tmux-powerline/powerline.sh left)"
-source '/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf'
+set -g status-bg colour233
+set -g status-fg colour239
+# set-option -g status on
+# set-option -g status-interval 2
+# set-option -g status-utf8 on
+# set-option -g status-justify "centre"
+# # set-option -g status-left-length 100
+# set-option -g status-right-length 200
+# set-option -g status-right "#(~/sandbox/github.com/tmux-powerline/powerline.sh right)"
+# set-option -g status-left "#(~/sandbox/github.com/tmux-powerline/powerline.sh left)"
 
+run-shell "powerline-daemon -q"
+source "/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
 
 # Notifying if other windows has activities
 setw -g monitor-activity off
 set -g visual-activity off
-set -g visual-content off
+#set -g visual-content off
 set -g visual-bell off
 
 # Highlighting the active window in status bar
@@ -86,3 +89,19 @@ setw -g clock-mode-colour green
 setw -g clock-mode-style 24
 
 # Title
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+
+# Update default binding of `Enter` to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+
+
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+
+set -g @continuum-restore 'on'
+
+run '~/.tmux/plugins/tpm/tpm'
