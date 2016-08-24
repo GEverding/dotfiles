@@ -7,9 +7,9 @@ alias so="source"
 alias soz="source $HOME/.zshrc"
 alias kat='pygmentize -O style=monokai -f console256 -g'
 
-alias ll="ls -alhF --group-directories-first"
-alias l="ls -ACF --group-directories-first"
-alias la="ls -CF --group-directories-first"
+alias ll="ls -alhF"
+alias l="ls -ACF"
+alias la="ls -CF"
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
 
 alias c='clear'
