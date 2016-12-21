@@ -27,33 +27,40 @@ values."
      ;; better-defaults
      emacs-lisp
      git
-     c-c++
+     (c-c++ :variables c-c++-enable-clang-support t)
      markdown
      elixir
      java
      python
+     (javascript :variables tern-command '("node" "/usr/local/bin/tern"))
      org
      ruby
      clojure
      sql
      vimscript
+     haskell
      scala
      go
-     swift
      yaml
-     dockerfile
+     docker
+     ycmd
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      spell-checking
      syntax-checking
+     auto-completion
      version-control
+     markdown
+     latex
+     swift
+     extra-langs
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(protobuf-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -120,7 +127,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Meslo LG S for Powerline"
-                               :size 26
+                               :size 30
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -262,6 +269,14 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  (global-company-mode)
+  (setq clojure-enable-fancify-symbols t)
+  (add-to-list 'exec-path "~/sandbox/wemesh/golang/bin")
+  (setq-default ensime-startup-snapshot-notification 'nil)
+  (setq-default js2-basic-offset 2)
+  ;(setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
