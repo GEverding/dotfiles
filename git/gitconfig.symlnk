@@ -60,3 +60,5 @@
 	tool = vimdiff
 [merge]
 	tool = vimdiff
+[http]
+	cookiefile = /Users/geverding/.gitcookies

@@ -3,6 +3,8 @@ bind r source-file ~/.tmux.conf
 
 unbind C-b
 set -g prefix C-a
+set -s escape-time 0
+bind-key s choose-session -N -w
 
 # Last active window
 unbind l
@@ -68,7 +70,7 @@ set -g status-fg colour239
 # set-option -g status-left "#(~/sandbox/github.com/tmux-powerline/powerline.sh left)"
 
 run-shell "powerline-daemon -q"
-source "/Users/geverding/Library/Python/2.7/lib/python/site-packages/powerline/bindings/tmux/powerline.conf"
+source "/usr/local/lib/python3.6/site-packages/powerline/bindings/tmux/powerline.conf"
 
 
 # Notifying if other windows has activities
@@ -93,17 +95,30 @@ setw -g clock-mode-style 24
 
 # Title
 # Setup 'v' to begin selection as in Vim
-bind-key -t vi-copy v begin-selection
-bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+bind-key -T edit-mode-vi Up send-keys -X history-up
+bind-key -T edit-mode-vi Down send-keys -X history-down
+unbind-key -T copy-mode-vi Space     ;   bind-key -T copy-mode-vi v send-keys -X begin-selection
+unbind-key -T copy-mode-vi Enter     ;   bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "reattach-to-user-namespace pbcopy"
+unbind-key -T copy-mode-vi C-v       ;   bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+unbind-key -T copy-mode-vi [         ;   bind-key -T copy-mode-vi [ send-keys -X begin-selection
+unbind-key -T copy-mode-vi ]         ;   bind-key -T copy-mode-vi ] send-keys -X copy-selection
+
+set-option -g default-command "tmux rename-window zsh; reattach-to-user-namespace -l zsh"
+
+# Old Way
+#bind-key -t copy-mode-vi v begin-selection
+#bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 
 # Update default binding of `Enter` to also use copy-pipe
-unbind -t vi-copy Enter
-bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+#unbind -t vi-copy Enter
+#bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 
 
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-sessionist'
 
 set -g @continuum-restore 'on'
 

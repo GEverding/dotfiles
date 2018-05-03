@@ -1,5 +1,4 @@
 
-alias open='gnome-open'
 alias vi='vim'
 alias tmux="tmux -2"
 

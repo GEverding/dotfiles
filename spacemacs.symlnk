@@ -18,6 +18,8 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     ;;html
+     ;;nginx
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -26,41 +28,35 @@ values."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     git
-     (c-c++ :variables c-c++-enable-clang-support t)
-     markdown
-     elixir
-     java
-     python
-     (javascript :variables tern-command '("node" "/usr/local/bin/tern"))
-     org
-     ruby
+     ;; git
+     ;; (c-c++ :variables c-c++-enable-clang-support t)
+     ;; markdown
+     ;;java
+     ;;python
+     ;; (javascript :variables tern-command '("node" "/usr/local/bin/tern"))
      clojure
-     sql
-     vimscript
-     haskell
-     scala
-     go
-     yaml
-     docker
-     ycmd
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     spell-checking
-     syntax-checking
-     auto-completion
-     version-control
-     markdown
-     latex
-     swift
-     extra-langs
+     ;; sql
+     ;; scala
+     ;; go
+     ;; yaml
+     ;; docker
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     ;; syntax-checking
+     ;; auto-completion
+     ;; version-control
+     ;; latex
+     ;; swift
+     ;; extra-langs
+     ;; react
+     ;; python
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(protobuf-mode)
+   dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -272,12 +268,47 @@ you should place your code here."
 
   (global-company-mode)
   (setq clojure-enable-fancify-symbols t)
+  (setq ensime-startup-notification 'nil)
   (add-to-list 'exec-path "~/sandbox/wemesh/golang/bin")
   (setq-default ensime-startup-snapshot-notification 'nil)
+  (spacemacs/toggle-truncate-lines-on)
+
+
   (setq-default js2-basic-offset 2)
+  (setq-default js-indent-level 2)
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
   ;(setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
+  (setq helm-echo-input-in-header-line nil)
 
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (packed anaconda-mode eclim ycmd helm helm-core haskell-mode company yasnippet avy hydra flycheck zenburn-theme yapfify yaml-mode xterm-color ws-butler wolfram-mode winum which-key web-mode web-beautify volatile-highlights vimrc-mode vi-tilde-fringe uuidgen use-package toc-org thrift tagedit swift-mode stan-mode sql-indent spaceline solarized-theme smeargle slim-mode shell-pop scss-mode scad-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters qml-mode pyvenv pytest pyenv-mode py-isort pug-mode protobuf-mode popwin pip-requirements persp-mode paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file ob-elixir noflet nginx-mode neotree multi-term move-text monokai-theme mmm-mode minitest meghanada matlab-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode julia-mode js2-refactor js-doc intero info+ indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-hoogle helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets groovy-mode groovy-imports gradle-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-ycmd flycheck-pos-tip flycheck-mix flycheck-haskell flycheck-credo flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eshell-z eshell-prompt-extras esh-help ensime emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker disaster diff-hl define-word dactyl-mode cython-mode company-ycmd company-web company-tern company-statistics company-go company-ghci company-ghc company-emacs-eclim company-cabal company-c-headers company-auctex company-anaconda column-enforce-mode coffee-mode cmm-mode cmake-mode clojure-snippets clj-refactor clean-aindent-mode clang-format cider-eval-sexp-fu chruby bundler auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile arduino-mode alchemist aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
