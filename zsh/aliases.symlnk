@@ -1,6 +1,7 @@
 
 alias vi='vim'
 alias tmux="tmux -2"
+alias kube="kubectl"
 
 alias so="source"
 alias soz="source $HOME/.zshrc"
