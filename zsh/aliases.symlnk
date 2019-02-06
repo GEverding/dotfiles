@@ -1,6 +1,7 @@
 
 alias vi='vim'
 alias tmux="tmux -2"
+alias nrepl="lein nrepl :middleware \"['cider.nrepl/cider-middleware]\""
 
 alias so="source"
 alias soz="source $HOME/.zshrc"
