@@ -78,6 +78,7 @@ This function should only modify configuration layer settings."
      (clojure :variables
               clojure-enable-clj-refactor t)
      (scala :variables
+            scala-backend 'scala-ensime
             scala-use-unicode-arrows t
             scala-auto-insert-asterisk-in-comments t)
      (shell :variables
