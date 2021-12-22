@@ -5,11 +5,8 @@
 [credential]
   helper = cache
 
-[url "git@github.com:"]
-	insteadOf = https://github.com/
-
-[url "dev.monstercat.com:git/monstercat/"]
-  insteadOf = mcat:
+#[url "git@github.com:"]
+#	insteadOf = https://github.com/
 
 [push]
 	default = current
@@ -71,3 +68,5 @@
 	oldHighlight = red bold 52
 	newNormal = green bold
 	newHighlight = green bold 22
+[init]
+	defaultBranch = master

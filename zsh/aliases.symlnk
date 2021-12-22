@@ -7,6 +7,7 @@ alias so="source"
 alias soz="source $HOME/.zshrc"
 alias kat='pygmentize -O style=monokai -f console256 -g'
 
+alias ls="exa"
 alias ll="ls -alhF"
 alias l="ls -ACF"
 alias la="ls -CF"
@@ -133,4 +134,12 @@ alias cpualloc="util | grep % | awk '{print \$1}' | awk '{ sum += \$1 } END { if
 
 function smartresize() {
    mogrify -path $3 -filter Triangle -define filter:support=2 -thumbnail $2 -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB $1
+}
+
+
+function jwtd() {
+    if [[ -x $(command -v jq) ]]; then
+         jq -R 'split(".") | .[0],.[1] | @base64d | fromjson' <<< "${1}"
+         echo "Signature: $(echo "${1}" | awk -F'.' '{print $3}')"
+    fi
 }

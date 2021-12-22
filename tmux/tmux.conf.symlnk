@@ -71,7 +71,7 @@ set -g status-fg colour239
 # set-option -g status-left "#(~/sandbox/github.com/tmux-powerline/powerline.sh left)"
 
 run-shell "powerline-daemon -q"
-source "/usr/local/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf"
+source "~/Library/Python/3.8/lib/python/site-packages/powerline/bindings/tmux/powerline.conf"
 
 
 # Notifying if other windows has activities

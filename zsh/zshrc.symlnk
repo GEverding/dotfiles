@@ -88,12 +88,14 @@ source $ZSH/oh-my-zsh.sh
 #PROMPT=$PROMPT'$(kube_ps1) '
 source $HOME/.aliases 
 
+#eval "$(direnv hook zsh)"
+
 export PROTOC="$HOME/software/protoc-3.6.1-osx-x86_64/bin"
 export ANDROIDSDK="$HOME/Library/Android/sdk"
-export ANDROIDNDK="$HOME/Library/Android/sdk/ndk-bundle"
+export ANDROIDNDK="$HOME/Library/Android/sdk/ndk/23.0.7599858"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 #export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/jre"
-export PATH=$PATH:$ANDROIDNDK:$ANDROIDSDK/platform-tools:$ANDROIDSDK/tools:$JAVA_HOME/bin
+export PATH=/opt/homebrew/bin:$HOME/software/depot_tools:$PATH:$ANDROIDNDK:$ANDROIDSDK/platform-tools:$ANDROIDSDK/tools:$HOME/.cargo/bin
 
 source `brew --prefix`/etc/profile.d/z.sh
 source <(kubectl completion zsh)
@@ -101,16 +103,17 @@ function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/opt/libxml2/bin:$PATH"
 
-. $HOME/.asdf/asdf.sh
+#. $HOME/.asdf/asdf.sh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-. $HOME/.asdf/completions/asdf.bash
-export WEBRTC_DEPOT_TOOLS="$HOME/sandbox/wemesh/depot_tools"
+#. $HOME/.asdf/completions/asdf.bash
+#export WEBRTC_DEPOT_TOOLS="$HOME/sandbox/wemesh/depot_tools"
 
 
-export PATH="$HOME/.bin:$PATH"
+export PATH="$HOME/.bin:$HOME/Library/Python/3.8/bin:$PATH"
 export PATH="$PROTOC:$PATH"
 export PATH="$WEBRTC_DEPOT_TOOLS:$PATH"
 export PATH="/usr/local/opt/node@8/bin:$PATH"
@@ -120,9 +123,9 @@ export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home/"
+export JAVA_HOME="/usr/local/opt/openjdk@8"
 #export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="$JAVA_HOME/bin:/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/3.0.0/bin:$PATH"
 export PATH="$HOME/.nvm/versions/node/v8.16.0/bin:$PATH"
 
 autoload -U edit-command-line
@@ -134,3 +137,9 @@ export AWS_PROFILE=prod
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="/opt/homebrew/opt/thrift@0.9/bin:$PATH"
